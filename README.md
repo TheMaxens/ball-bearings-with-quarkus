@@ -2,7 +2,15 @@
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+If you want to learn more about Quarkus, please visit its website: https://quarkus.io/.
+
+> **[Here](./contributing.md), you will find the contribution guide.** 
+
+## Prerequisites 
+1. [JDK](https://www.oracle.com/java/technologies/downloads/) 
+2. [Gradle](https://gradle.org/install/)
+3. IDE (e.g. [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows))
+> **_NOTE:_** This Quarkus-Project was built with Gradle, it would also be possible to use [Maven](https://maven.apache.org/download.cgi). 
 
 ## Running the application in dev mode
 
