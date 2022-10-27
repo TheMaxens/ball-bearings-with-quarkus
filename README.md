@@ -1,19 +1,70 @@
-# ball-bearings-with-quarkus
+# ball-bearings-with-quarkus Project
 
-## How to contribute
-Contributions to this repo are made via **Issues** and **Pull Requests** (PRs).
+This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
-### Issues
+If you want to learn more about Quarkus, please visit its website: https://quarkus.io/.
 
-Issues should be used to report problems, request a new feature, or to discuss potential changes before a PR is created. You can either [**create a new issue**](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue) , in case you spot a problem or work on an already **existing issue**.
+> **[Here](./contributing.md), you will find the contribution guide.** 
 
+## Prerequisites 
+1. [JDK](https://www.oracle.com/java/technologies/downloads/) 
+2. [Gradle](https://gradle.org/install/)
+3. IDE (e.g. [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows))
+> **_NOTE:_** This Quarkus-Project was built with Gradle, it would also be possible to use [Maven](https://maven.apache.org/download.cgi). 
 
-### Pull Requests
+## Running the application in dev mode
 
-1. Fork the repository to your own Github account in order to work on the issue without immediately affecting the original version
-2. Within the forked repository create a branch with a succinct but descriptive name
-3. Commit your changes to the working branch
-4. After your changes on the issue are finished, create a PR ([Pull Request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request)). You can link the respective issue and send the PR to a contributor of the original repository with sufficient permission to accept your PR.
-Once your changes meet the requirements, they will be merged into the original repository.
+You can run your application in dev mode that enables live coding using:
 
-**Now your changes have been contributed to the project!**
+```shell script
+./gradlew quarkusDev
+```
+
+> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
+
+## Packaging and running the application
+
+The application can be packaged using:
+
+```shell script
+./gradlew build
+```
+
+It produces the `quarkus-run.jar` file in the `build/quarkus-app/` directory.
+Be aware that it’s not an _über-jar_ as the dependencies are copied into the `build/quarkus-app/lib/` directory.
+
+The application is now runnable using `java -jar build/quarkus-app/quarkus-run.jar`.
+
+If you want to build an _über-jar_, execute the following command:
+
+```shell script
+./gradlew build -Dquarkus.package.type=uber-jar
+```
+
+The application, packaged as an _über-jar_, is now runnable using `java -jar build/*-runner.jar`.
+
+## Creating a native executable
+
+You can create a native executable using:
+
+```shell script
+./gradlew build -Dquarkus.package.type=native
+```
+
+Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+
+```shell script
+./gradlew build -Dquarkus.package.type=native -Dquarkus.native.container-build=true
+```
+
+You can then execute your native executable with: `./build/ball-bearings-with-quarkus-1.0-SNAPSHOT-runner`
+
+If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
+
+## Provided Code
+
+### RESTEasy Reactive
+
+Easily start your Reactive RESTful Web Services
+
+[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
