@@ -9,13 +9,13 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ## Dev Container - Prerequisites 
 1. [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 2. [Visual Studio Code](https://code.visualstudio.com/download)
-3. [Remote Development Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+3. [Remote Development Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 
 ## Dev Container - Installation
+> **Make sure Docker Desktop is running**
 1. Start VS Code and run **Dev Containers: Clone Repository in Container Volume...** from the Command Palette (F1).
-2. Enter https://github.com/TheMaxens/ball-bearings-with-quarkus and press Enter.
-3. Select the branch **main**. 
-4. 
+2. Enter https://github.com/TheMaxens/ball-bearings-with-quarkus and press Enter. 
+3. The VS Code window will reload, clone the source code, and start building the dev container. A progress notification provides status updates.
 
 [//]: # (## Prerequisites )
 
