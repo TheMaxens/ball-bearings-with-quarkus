@@ -6,11 +6,26 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 
 > **[Here](./contributing.md), you will find the contribution guide.** 
 
-## Prerequisites 
-1. [JDK](https://www.oracle.com/java/technologies/downloads/) 
-2. [Gradle](https://gradle.org/install/)
-3. IDE (e.g. [IntelliJ](https://www.jetbrains.com/idea/download/#section=windows))
-> **_NOTE:_** This Quarkus-Project was built with Gradle, it would also be possible to use [Maven](https://maven.apache.org/download.cgi). 
+## Dev Container - Prerequisites 
+1. [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+2. [Visual Studio Code](https://code.visualstudio.com/download)
+3. [Remote Development Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+
+## Dev Container - Installation
+> **Make sure Docker Desktop is running**
+1. Start VS Code and run **Dev Containers: Clone Repository in Container Volume...** from the Command Palette (F1).
+2. Enter https://github.com/TheMaxens/ball-bearings-with-quarkus and press Enter. 
+3. The VS Code window will reload, clone the source code, and start building the dev container. A progress notification provides status updates.
+
+[//]: # (## Prerequisites )
+
+[//]: # (1. [JDK]&#40;https://www.oracle.com/java/technologies/downloads/&#41; )
+
+[//]: # (2. [Gradle]&#40;https://gradle.org/install/&#41;)
+
+[//]: # (3. IDE &#40;e.g. [IntelliJ]&#40;https://www.jetbrains.com/idea/download/#section=windows&#41;&#41;)
+
+[//]: # (> **_NOTE:_** This Quarkus-Project was built with Gradle, it would also be possible to use [Maven]&#40;https://maven.apache.org/download.cgi&#41;. )
 
 ## Running the application in dev mode
 
