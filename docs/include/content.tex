@@ -1,4 +1,4 @@
-\chapter{Einleitung} 
+\chapter{Introduction} 
     \autocite[vgl.][S.245]{01} \\
     \begin{figure}[h]
         \centering
@@ -6,18 +6,72 @@
         \caption{Meine Grafik}
         \label{fig:meine-grafik}
     \end{figure}
-       
+  
+\chapter{Requirements}    
 
-\chapter{Theoretische Grundlagen}
+\chapter{Prerequisites}
+    The following steps and guides relate to docker container, therefore the following preparations have to be made first. 
 
-    \section{Section 1} 
+    \begin{enumerate}
+        \item Install \href{https://www.docker.com/products/docker-desktop/}{Docker Desktop}
+        \item Install \href{https://code.visualstudio.com/download}{Visual Studio Code} 
+        \item Install the VSCode extension \href{https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack}{Remote Development} 
+    \end{enumerate}    
+
+\chapter{How to set up Git for remote development}
+    This chapter is about setting up git in a Docker container. When there is no suitable container running yet, then you have to start a new one. This would be the default case. \\
+    You have to open a command line interface of your choice (e.g. Powershell for Windows or Bash for Linux). 
+    Afterwards you can go through these required steps: 
+    \begin{enumerate}
+        \item This command will create a container based on the image \textit{ubuntu} with the tag \textit{focal} and afterwards a bash will be opened. You need the options -i and -t for interactive processes like a shell.  
+            \begin{lstlisting}[language=bash] 
+docker run -it ubuntu:focal bash 
+            \end{lstlisting}
+        \item APT is a commandline package manager for Linux-distributions and provides commands for searching and managing as well as querying information about packages. You are able to install and uninstall packages with APT. \\
+        First the package lists are re-read, afterwards git is installed. 
+            \begin{lstlisting}[language=bash] 
+apt update && apt install git
+            \end{lstlisting}
+            You can check wheather the installtion of git was successful with: 
+            \begin{lstlisting}[language=bash] 
+git - -version
+            \end{lstlisting}
+        \item GPG is a cryptographic software suite with which you can create key pairs (public and private) and for example create signatures. We will use it to sign our commits on GitHub.
+            \begin{lstlisting}[language=bash] 
+apt update && apt install gpg
+            \end{lstlisting}
+        \item Now we will install the GitHub CLI in our container. \\
+        When you configure your container from scratch, you have to execute the commands which are provided on \url{https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt}
+        \item Create a personal access token on \href{https://github.com/settings/tokens}{Github} at least with the permissions read:org, repo and workflow. Copy the generated token and insert the following command in bash with the substituted token: 
+            \begin{lstlisting}[language=bash] 
+export GH_TOKEN = <your-token>
+            \end{lstlisting}   
+        Now you are authenticated with your GitHub host and are able to proceed with the next step.
+        \item Afterwards you are able to authenticate with your GitHub host via the GitHub CLI. You have multiple choices to do that.  
+            \begin{lstlisting}[language=bash] 
+gh auth login
+            \end{lstlisting}   
+        \item Clone the respective GitHub respository with: 
+            \begin{lstlisting}[language=bash] 
+gh repo clone <link-to-repo>  
+            \end{lstlisting} 
+            In this case the link to the repo is \textit{themaxens/ball-bearings-with-quarkus}.
+        \item Configure git, to create signed commits. Replace <user-name> and <email> with your own credentials. 
+            \begin{lstlisting}[language=bash] 
+git config gpg.program gpg && git config commit.gpgsign true
+git config user.name "<user-name>"
+git config user.email "<email>"
+            \end{lstlisting} 
+    \end{enumerate}
+
+    
 
 
-\chapter{Applikation}
+\chapter{How to set up Quarkus for remote development}
 
 
-\chapter{Implementierung}
+\chapter{Implementation}
 
 
-\chapter{Zusammenfassung} % Fazit
+\chapter{Conclusion} % Fazit
 
