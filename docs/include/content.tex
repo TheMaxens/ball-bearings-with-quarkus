@@ -98,7 +98,7 @@ git config user.signingkey <id>
 git config commit.gpgsign true
             \end{lstlisting} 
         From now on, your local commits will be signed.   
-        \item Last but not least:
+        \item Last but not least you have to configure the .bashrc file. It is a startup configuration file for the \ac{bash} which is loaded every time a terminal is opened. The export command will set the environment variable \textit{GPG\_TTY} to the correct terminal so that the passphrase for your \ac{gpg}-key can be queried correctly. The export command will be attached  to the .bashrc file in your home directory.  
             \begin{lstlisting}[language=bash] 
 [ -f ~/.bashrc ] && echo 'export GPG_TTY=$(tty)' >> ~/.bashrc
             \end{lstlisting}
@@ -106,10 +106,24 @@ git config commit.gpgsign true
     Once you have successfully completed all the steps, Git is configured in the Docker container. 
 
     \section{Attach Visual Studio Code to Docker Container}
-        Open VSCode and navigate to the Docker-symbol in the vertical-left bar. \\
+        Open VSCode and navigate to the Docker-symbol in the vertical-left bar as shown in figure \ref{fig:attach_vscode}. \\
         When Docker Desktop is running, you will see all your containers. Maybe you have to start the container first. \\
-        Peform a right click on the respective container and select \glqq Attach Visual Studio Code\grqq. Afterwards the container will be attached to VSCode. 
-
+        Peform a right click on the respective container and select \glqq Attach Visual Studio Code\grqq. 
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=0.7]{images/attach_VSCode.png}
+            \caption{Attach Docker Container to VSCode}
+            \label{fig:attach_vscode}
+        \end{figure}
+        
+        Afterwards the container will be attached to VSCode, which can be seen by the green information in the bottom left corner. In figure \ref{fig:container_attached} you can see an example. The text may vary, depending on your image and container name.     
+        
+        \begin{figure}[h]
+            \centering
+            \includegraphics{images/container_attached.png}
+            \caption{Docker Container is attched}
+            \label{fig:container_attached}
+        \end{figure}
     
 
 
