@@ -14,7 +14,7 @@
         \item Install the VSCode extension \href{https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker}{Docker}
     \end{enumerate}    
 
-\chapter{How to set up Git for remote development}
+\chapter{How to set up Git for remote development}\label{chap:git_remote}
     This chapter is about setting up git in a Docker container. When there is no suitable container running yet, then you have to start a new one. This would be the default case. \\
     You have to open a command line interface of your choice, for example Powershell for Windows or \ac{bash} for Linux-based systems. 
     Afterwards you can go through these required steps: 
@@ -128,6 +128,33 @@ git config commit.gpgsign true
 
 
 \chapter{How to set up Quarkus for remote development}
+    This chapter is about setting up Quarkus in a Docker container \autocite[vgl.][]{quarkus}. If you have already completed the steps from chapter \ref{chap:git_remote}, you can continue with this container. Otherwise, you have to create a new container.
+
+    \begin{enumerate}
+        \item Install curl because it will be needed in future steps.
+        \begin{lstlisting}[language=bash] 
+apt-get update; apt-get install -y curl
+        \end{lstlisting}
+        \item Now you are able to install Quarkus via curl.
+        \begin{lstlisting}[language=bash, breaklines=true] 
+curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/
+        \end{lstlisting}
+
+        \begin{lstlisting}[language=bash, breaklines=true] 
+curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
+        \end{lstlisting}
+
+        \item When you initially set up Quarkus, you have to create a new Quarkus application. In this case a getting started application would be created in the folder \textit{code-with-quarkus}. You are able to specify parameters to define the build system, for example Maven or Gradle. For more information about the available parameters, execute quarkus create app --help.
+        \begin{lstlisting}[language=bash, breaklines=true] 
+quarkus create && cd code-with-quarkus
+        \end{lstlisting}
+        \item Set \textit{quarkus.http.host} to 0.0.0.0 in application.properties under src/main/resources.
+        \item Now you are able to run your application with:
+        \begin{lstlisting}[language=bash]
+quarkus dev
+        \end{lstlisting}
+        When you start the application in dev mode, live coding is active which means that you don't have to restart the application to apply changes.
+    \end{enumerate}
 
 
 \chapter{Implementation}
