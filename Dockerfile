@@ -18,6 +18,8 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | d
     && apt install gh -y
 # clone repo 
 RUN gh repo clone themaxens/ball-bearings-with-quarkus
+# configure git to use GitHub CLI as a credential helper
+RUN gh auth setup-git
 # setup git
 WORKDIR /ball-bearings-with-quarkus
 RUN git config gpg.program gpg
