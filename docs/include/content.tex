@@ -3,7 +3,26 @@
     
 
   
-\chapter{Requirements}    
+\chapter{Requirements} 
+    The microservice will be about a calculation process for ball bearings.  
+
+    \section{Flow chart for calculation process}
+        \begin{tikzpicture}[node distance = 3cm]
+            \node [terminator, fill=blue!20] (start) {\textbf{Start}};
+            \node [data, fill=blue!20, below of=start] (data) {Provide data};
+            \node [decision, fill=blue!20, below of=data] (decision) {Valid data?};
+            \node [process, fill=red!20, right of=decision] (error) {Error};
+            \node [process, fill=green!20, below of=decision] (success) {Success};
+            \node [terminator, fill=blue!20, below of=success] (end) {\textbf{End}};
+            \node[draw=none] at (1.70, -5.75) (no) {No};
+            \node[draw=none] at (0.35, -7.80) (yes) {Yes};
+            \path [connector] (start) -- (data);
+            \path [connector] (data) -- (decision);
+            \path [connector] (decision) -- (error);
+            \path [connector] (decision) -- (success);
+            \path [connector] (error) |- (end);
+            \path [connector] (success) -- (end);
+        \end{tikzpicture}
 
 \chapter{Prerequisites}
     The following steps and guides relate to docker container, therefore the following preparations have to be made first, otherwise the steps will not work.  
