@@ -4,25 +4,51 @@
 
   
 \chapter{Requirements} 
-    The microservice will be about a calculation process for ball bearings.  
+    The microservice will be about a calculation process for ball bearings in O-assignment. 
 
     \section{Flow chart for calculation process}
-        \begin{tikzpicture}[node distance = 3cm]
+        Bearing A and B (Kegelrollenlager) in O-assignment. 
+        
+        \begin{tikzpicture}[node distance = 2cm]
             \node [terminator, fill=blue!20] (start) {\textbf{Start}};
-            \node [data, fill=blue!20, below of=start] (data) {Provide data};
-            \node [decision, fill=blue!20, below of=data] (decision) {Valid data?};
-            \node [process, fill=red!20, right of=decision] (error) {Error};
-            \node [process, fill=green!20, below of=decision] (success) {Success};
-            \node [terminator, fill=blue!20, below of=success] (end) {\textbf{End}};
-            \node[draw=none] at (1.70, -5.75) (no) {No};
-            \node[draw=none] at (0.35, -7.80) (yes) {Yes};
-            \path [connector] (start) -- (data);
-            \path [connector] (data) -- (decision);
-            \path [connector] (decision) -- (error);
-            \path [connector] (decision) -- (success);
-            \path [connector] (error) |- (end);
-            \path [connector] (success) -- (end);
+            \node [decision, fill=blue!20, below of=start, yshift=-2cm] (decision) {is Einschaltdauer set?};
+            \node [process, fill=blue!20, right of=decision, xshift=4cm] (einschaltdauer) {Einschaltdauer = 100};
+            \node [process, fill=blue!20, below of=decision, yshift=-2cm] (conversion) {conversion of geometric measures};
+            \node [process, fill=blue!20, below of=conversion] (radial) {calculation of radial forces};
+            \node [process, fill=blue!20, below of=radial] (axial) {calculation of axial forces};
+            \node [process, fill=blue!20, below of=axial] (equivalent) {calculation of dynamic equivalent bearing load};
+            \node [process, fill=blue!20, below of=equivalent] (lifetime) {calculation of bearing lifetime};
+            \node [data, fill=blue!20, below of=lifetime] (result) {lifetime of bearing in hours};
+            \node [terminator, fill=blue!20, below of=result] (end) {\textbf{End}};
+
+            \path [connector] (start) -- (decision);
+            \draw [arrow] (decision) -- node[anchor=east] {yes} (conversion);
+            \draw [arrow] (decision) -- node[anchor=south] {no} (einschaltdauer);
+            \path [connector] (einschaltdauer) |- (conversion);
+            \path [connector] (conversion) -- (radial);
+            \path [connector] (radial) -- (axial);
+            \path [connector] (axial) -- (equivalent);
+            \path [connector] (equivalent) -- (lifetime);
+            \path [connector] (lifetime) -- (result);
+            \path [connector] (result) -- (end);
         \end{tikzpicture}
+
+        % \begin{tikzpicture}[node distance = 3cm]
+        %     \node [terminator, fill=blue!20] (start) {\textbf{Start}};
+        %     \node [data, fill=blue!20, below of=start] (data) {Provide data};
+        %     \node [decision, fill=blue!20, below of=data] (decision) {Valid data?};
+        %     \node [process, fill=red!20, right of=decision] (error) {Error};
+        %     \node [process, fill=green!20, below of=decision] (success) {Success};
+        %     \node [terminator, fill=blue!20, below of=success] (end) {\textbf{End}};
+        %     \node[draw=none] at (1.70, -5.75) (no) {No};
+        %     \node[draw=none] at (0.35, -7.80) (yes) {Yes};
+        %     \path [connector] (start) -- (data);
+        %     \path [connector] (data) -- (decision);
+        %     \path [connector] (decision) -- (error);
+        %     \path [connector] (decision) -- (success);
+        %     \path [connector] (error) |- (end);
+        %     \path [connector] (success) -- (end);
+        % \end{tikzpicture}
 
 \chapter{Prerequisites}
     The following steps and guides relate to docker container, therefore the following preparations have to be made first, otherwise the steps will not work.  
