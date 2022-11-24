@@ -11,9 +11,7 @@
         
         \begin{tikzpicture}[node distance = 2cm]
             \node [terminator, fill=blue!20] (start) {\textbf{Start}};
-            \node [decision, fill=blue!20, below of=start, yshift=-2cm] (decision) {is Einschaltdauer set?};
-            \node [process, fill=blue!20, right of=decision, xshift=4cm] (einschaltdauer) {Einschaltdauer = 100};
-            \node [process, fill=blue!20, below of=decision, yshift=-2cm] (conversion) {conversion of geometric measures};
+            \node [process, fill=blue!20, below of=start] (conversion) {conversion of geometric measures};
             \node [process, fill=blue!20, below of=conversion] (radial) {calculation of radial forces};
             \node [process, fill=blue!20, below of=radial] (axial) {calculation of axial forces};
             \node [process, fill=blue!20, below of=axial] (equivalent) {calculation of dynamic equivalent bearing load};
@@ -21,10 +19,9 @@
             \node [data, fill=blue!20, below of=lifetime] (result) {lifetime of bearing in hours};
             \node [terminator, fill=blue!20, below of=result] (end) {\textbf{End}};
 
-            \path [connector] (start) -- (decision);
-            \draw [arrow] (decision) -- node[anchor=east] {yes} (conversion);
-            \draw [arrow] (decision) -- node[anchor=south] {no} (einschaltdauer);
-            \path [connector] (einschaltdauer) |- (conversion);
+            \path [connector] (start) -- (conversion);
+            % \draw [arrow] (decision) -- node[anchor=east] {yes} (conversion);
+            % \draw [arrow] (decision) -- node[anchor=south] {no} (einschaltdauer);
             \path [connector] (conversion) -- (radial);
             \path [connector] (radial) -- (axial);
             \path [connector] (axial) -- (equivalent);
