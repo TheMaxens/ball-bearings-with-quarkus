@@ -30,6 +30,34 @@
             \path [connector] (result) -- (end);
         \end{tikzpicture}
 
+        \begin{tikzpicture}
+            \begin{class}[text width=8cm]{Bearing}{0,0}
+                \attribute{- Cdyn : double}
+                \attribute{- Y : double}
+                \attribute{- e : double}
+                \attribute{- xB1 : double}
+                \attribute{- xD1 : double}
+                \attribute{- xD2 : double}
+
+                
+                
+            \end{class}
+        \end{tikzpicture}
+
+        \begin{tikzpicture}
+            \begin{class}[text width=8cm]{OArrangement}{0,0}
+                \attribute{- bearingA : Bearing}
+                \attribute{- bearingB : Bearing}
+                \attribute{- Fr : double}
+                \attribute{- Fa : double}
+                \attribute{- n : double}
+                \attribute{- xr : double}
+                \attribute{- ya : double}
+                
+                
+            \end{class}
+        \end{tikzpicture}
+
         % \begin{tikzpicture}[node distance = 3cm]
         %     \node [terminator, fill=blue!20] (start) {\textbf{Start}};
         %     \node [data, fill=blue!20, below of=start] (data) {Provide data};
