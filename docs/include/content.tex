@@ -96,8 +96,9 @@
 
 \chapter{Remote development}
     This chapter is about setting up git and Quarkus in a Docker container. \\
-    You can either setup your development manually, as described in section \ref{sec:git_remote} and \ref{sec:quarkus_remote}. Otherwise you are able to use the provided ready-to-use Dockerfile in section \ref{sec:dockerfile}. \\
-    Additionally there will be a section \ref{sec:attach} about how to attach VSCode to a running Docker container. 
+    You can either setup your development manually, as described in section \ref{sec:git_remote} and \ref{sec:quarkus_remote} or you can use the provided ready-to-use Dockerfile in section \ref{sec:dockerfile}. I would recommend the second procedure. \\
+    Additionally there will be a section \ref{sec:attach} about how to attach VSCode to a running Docker container. \\
+    As prepartion, you have to start Docker Desktop. 
 
 \section{How to set up Git for remote development}\label{sec:git_remote}
     This chapter is about setting up git in a Docker container. When there is no suitable container running yet, then you have to start a new one. This would be the default case. \\
@@ -150,7 +151,7 @@ gpg --full-generate-key
             \end{lstlisting} 
         Afterwards you are prompted to specify details for the key. Here you can accept the defaults with the exception of the key size. Enter a key size of 4096. \\
         Finally you have to specify your userid information and assign a password. 
-        \item \label{itm:gpg_key} Use the following command to list the long form of the \ac{gpg} keys. 
+        \item \label{itm:gpg_key_start} Use the following command to list the long form of the \ac{gpg} keys. 
             \begin{lstlisting}[language=bash] 
 gpg --list-secret-keys --keyid-format=long 
             \end{lstlisting} 
@@ -168,12 +169,12 @@ gpg --armor --export <id>
             \end{lstlisting}
         Copy the printed key, beginning with \textit{BEGIN PGP PUBLIC KEY BLOCK} and ending with \textit{END PGP PUBLIC KEY BLOCK}.  
         \item Now you are able to add the key to your GitHub Account: \url{https://github.com/settings/gpg/new}
-        \item After you have added the key to GitHub, you have to tell Git your signing key. 
+        \item \label{itm:gpg_key_end}After you have added the key to GitHub, you have to tell Git your signing key. 
             \begin{lstlisting}[language=bash] 
 git config --unset gpg.format
             \end{lstlisting}   
         The \textit{--global} is not necessary in this case. The settings are only made for the current repository you are in. \\
-        Use the same \ac{gpg} key id as  in \ref{itm:gpg_key} and enter this command. 
+        Use the same \ac{gpg} key id as  in \ref{itm:gpg_key_start} and enter this command. 
             \begin{lstlisting}[language=bash] 
 git config user.signingkey <id>
             \end{lstlisting}   
@@ -191,7 +192,7 @@ git config commit.gpgsign true
 
 
 \section{How to set up Quarkus for remote development}\label{sec:quarkus_remote}
-    This chapter is about setting up Quarkus in a Docker container \autocite[vgl.][]{quarkus}. If you have already completed the steps from chapter \ref{sec:git_remote}, you can continue with this container. Otherwise, you have to create a new container.
+    This chapter is about setting up Quarkus in a Docker container \autocite[vgl.][]{quarkus}. If you have already completed the steps from section \ref{sec:git_remote}, you can continue with this container. Otherwise, you have to create a new container.
 
     \begin{enumerate}
         \item Install curl because it will be needed in future steps.
@@ -218,8 +219,41 @@ quarkus dev
         \end{lstlisting}
         When you start the application in dev mode, live coding is active which means that you don't have to restart the application to apply changes.
     \end{enumerate}
+    To connect a database to your container (needed in future steps), you have to create a docker network. 
+    \begin{lstlisting}[language=bash]
+docker network create --driver bridge quarkus-net
+    \end{lstlisting}
+    Afterwards you are able to attach your container to this network: 
+    \begin{lstlisting}[language=bash]
+docker network connect quarkus-net <container-name>
+    \end{lstlisting}
 
     \section{How to use the Dockerfile for setup}\label{sec:dockerfile}
+        In this section you will get some instructions how to use the Dockerfile to set up the remote development. The Dockerfile is located in the root of the project. 
+        Run the following commands in a terminal. 
+        \begin{enumerate}
+            \item Build a docker image from the provided Dockerfile. You have to replace the tokens <REPLACE-ME> with your credentials and your API-Token:
+            \begin{lstlisting}[language=bash, breaklines=true]
+docker build --build-arg GH_TOKEN=<REPLACE-ME> --build-arg username=<REPLACE-ME> --build-arg email=<REPLACE-ME> -t quarkus_image .
+            \end{lstlisting}
+            \item Before you are able to create and run the container, you have to create a seperate network for your container, for example to connect a database (\ref{sec:database}). \label{item:network}
+            \begin{lstlisting}[language=bash]
+docker network create --driver bridge quarkus-net
+            \end{lstlisting}
+            \item After you have created your image, you can create a container which is attached to the currently created network:
+            \begin{lstlisting}[language=bash, breaklines=true]
+docker run --network quarkus-net --name quarkus -it quarkus_image
+            \end{lstlisting} 
+        \end{enumerate}
+        The installation of the gpg keys to sign your commits has to be done manually as well but the project provides a generation script \textit{gen-key-script}. Attach to the Quarkus container and follow these steps: 
+        \begin{enumerate}
+            \item Before executing the generation script you have to replace the \textit{REPLACE-ME}-tokens with your own credentials. Do not forget your passphrase, you will need it for signing your commits. Afterwards you can run the script: 
+            \begin{lstlisting}[language=bash]
+gpg --batch --gen-key gen-key-script
+            \end{lstlisting}
+            \item Now you have to tell git and GitHub your signing key. Follow the steps described from \ref{itm:gpg_key_start} to \ref{itm:gpg_key_end} in section \ref{sec:quarkus_remote}.
+        \end{enumerate}
+        
 
     \section{Attach Visual Studio Code to Docker Container}\label{sec:attach}
     Open VSCode and navigate to the Docker-symbol in the vertical-left bar as shown in figure \ref{fig:attach_vscode}. \\
@@ -241,6 +275,17 @@ quarkus dev
         \label{fig:container_attached}
     \end{figure}
 
+    \section{How to set up a database container}\label{sec:database}
+        In this section you will get some information how to create a database within a container and connect it to your quarkus container.  
+        \begin{enumerate}
+            \item Create and run a PostgreSQL database. The quarkus-net network has to be already created (look at \ref{item:network}):
+            \begin{lstlisting}[language=bash, breaklines=true]
+docker run --rm=true --name hibernate --network quarkus-net -e POSTGRES_USER=hibernate -e POSTGRES_PASSWORD=hibernate -e POSTGRES_DB=hibernate -p 5432:5432 postgres:14.1
+            \end{lstlisting}
+            \item You will find a file named \textit{.env.example} inside the root of the project. Rename this file to \textit{.env}. This is the place where your environment variables are stored. Make sure that the varibale \textit{POSTGRESQL\_SERVICE\_HOST} is set to \textit{hibernate}. \\
+            When you are not developing inside the quarkus container but on your local machine, you have to comment out the mentioned line. 
+        \end{enumerate}
+        Now your Quarkus container and the database container are in the same network and are able to communicate with each other. 
 
     
 
