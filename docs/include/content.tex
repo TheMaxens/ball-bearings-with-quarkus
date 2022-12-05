@@ -94,7 +94,12 @@
         \item Install the VSCode extension \href{https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker}{Docker}
     \end{enumerate}    
 
-\chapter{How to set up Git for remote development}\label{chap:git_remote}
+\chapter{Remote development}
+    This chapter is about setting up git and Quarkus in a Docker container. \\
+    You can either setup your development manually, as described in section \ref{sec:git_remote} and \ref{sec:quarkus_remote}. Otherwise you are able to use the provided ready-to-use Dockerfile in section \ref{sec:dockerfile}. \\
+    Additionally there will be a section \ref{sec:attach} about how to attach VSCode to a running Docker container. 
+
+\section{How to set up Git for remote development}\label{sec:git_remote}
     This chapter is about setting up git in a Docker container. When there is no suitable container running yet, then you have to start a new one. This would be the default case. \\
     You have to open a command line interface of your choice, for example Powershell for Windows or \ac{bash} for Linux-based systems. 
     Afterwards you can go through these required steps: 
@@ -156,8 +161,7 @@ gpg --list-secret-keys --keyid-format=long
             \caption{List of \ac{gpg} keys}
             \label{fig:gpg_key}
         \end{figure}
-        Copy the \ac{gpg} key ID, in this case: 3AA5C34371567BD2 
-        \pagebreak
+        Copy the \ac{gpg} key ID, in this case: 3AA5C34371567BD2         
         \item Enter this text with your copied ID. Your \ac{gpg} key will be printed to console.
             \begin{lstlisting}[language=bash] 
 gpg --armor --export <id>
@@ -183,32 +187,11 @@ git config commit.gpgsign true
 [ -f ~/.bashrc ] && echo 'export GPG_TTY=$(tty)' >> ~/.bashrc
             \end{lstlisting}
     \end{enumerate}
-    Once you have successfully completed all the steps, Git is configured in the Docker container. 
-
-    \section{Attach Visual Studio Code to Docker Container}
-        Open VSCode and navigate to the Docker-symbol in the vertical-left bar as shown in figure \ref{fig:attach_vscode}. \\
-        When Docker Desktop is running, you will see all your containers. Maybe you have to start the container first. \\
-        Peform a right click on the respective container and select \glqq Attach Visual Studio Code\grqq. 
-        \begin{figure}[h]
-            \centering
-            \includegraphics[scale=0.7]{images/attach_VSCode.png}
-            \caption{Attach Docker Container to VSCode}
-            \label{fig:attach_vscode}
-        \end{figure}
-        
-        Afterwards the container will be attached to VSCode, which can be seen by the green information in the bottom left corner. In figure \ref{fig:container_attached} you can see an example. The text may vary, depending on your image and container name.     
-        
-        \begin{figure}[h]
-            \centering
-            \includegraphics{images/container_attached.png}
-            \caption{Docker Container is attched}
-            \label{fig:container_attached}
-        \end{figure}
-    
+    Once you have successfully completed all the steps, Git is configured in the Docker container.   
 
 
-\chapter{How to set up Quarkus for remote development}
-    This chapter is about setting up Quarkus in a Docker container \autocite[vgl.][]{quarkus}. If you have already completed the steps from chapter \ref{chap:git_remote}, you can continue with this container. Otherwise, you have to create a new container.
+\section{How to set up Quarkus for remote development}\label{sec:quarkus_remote}
+    This chapter is about setting up Quarkus in a Docker container \autocite[vgl.][]{quarkus}. If you have already completed the steps from chapter \ref{sec:git_remote}, you can continue with this container. Otherwise, you have to create a new container.
 
     \begin{enumerate}
         \item Install curl because it will be needed in future steps.
@@ -236,6 +219,30 @@ quarkus dev
         When you start the application in dev mode, live coding is active which means that you don't have to restart the application to apply changes.
     \end{enumerate}
 
+    \section{How to use the Dockerfile for setup}\label{sec:dockerfile}
+
+    \section{Attach Visual Studio Code to Docker Container}\label{sec:attach}
+    Open VSCode and navigate to the Docker-symbol in the vertical-left bar as shown in figure \ref{fig:attach_vscode}. \\
+    When Docker Desktop is running, you will see all your containers. Maybe you have to start the container first. \\
+    Peform a right click on the respective container and select \glqq Attach Visual Studio Code\grqq. 
+    \begin{figure}[h]
+        \centering
+        \includegraphics[scale=0.7]{images/attach_VSCode.png}
+        \caption{Attach Docker Container to VSCode}
+        \label{fig:attach_vscode}
+    \end{figure}
+    
+    Afterwards the container will be attached to VSCode, which can be seen by the green information in the bottom left corner. In figure \ref{fig:container_attached} you can see an example. The text may vary, depending on your image and container name.     
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics{images/container_attached.png}
+        \caption{Docker Container is attched}
+        \label{fig:container_attached}
+    \end{figure}
+
+
+    
 
 \chapter{Implementation}
 
