@@ -1,4 +1,7 @@
+% some settings
 \nocite{*}
+\lstdefinestyle{bash}{basicstyle=\ttfamily, columns=fullflexible, language=bash, breaklines=true, showspaces=false, showstringspaces=false, breakatwhitespace=true}
+
 \chapter{Introduction} 
     
 
@@ -106,53 +109,53 @@
     Afterwards you can go through these required steps: 
     \begin{enumerate}
         \item This command will create a container based on the image \textit{ubuntu} with the tag \textit{focal} and afterwards a \ac{bash} will be opened. You need the options -i and -t for interactive processes like a shell.
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash]
 docker run -it ubuntu:focal bash 
             \end{lstlisting}
         As soon as the container has been started, you end up in the corresponding \ac{bash} which you will need for the following steps.
         \item \ac{apt} is a commandline package manager for Linux-distributions and provides commands for searching and managing as well as querying information about packages. You are able to install and uninstall packages with \ac{apt}. \\
         First the package lists are re-read, afterwards git is installed. 
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 apt update && apt install git
             \end{lstlisting}
             You can check wheather the installtion of git was successful with: 
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash]
 git - -version
             \end{lstlisting}
         \item \ac{gpg} is a cryptographic software suite with which you can create key pairs (public and private) and for example create signatures. We will use it to sign our commits on GitHub.
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash]
 apt update && apt install gpg
             \end{lstlisting}
         \item Now we will install the GitHub \ac{cli} in our container. \\
         When you configure your container from scratch, you have to execute the commands which are provided on \url{https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt}
         \item Create a personal access token on \href{https://github.com/settings/tokens}{Github} at least with the permissions read:org, repo and workflow. Copy the generated token and insert the following command in \ac{bash} with the substituted token: 
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash]
 export GH_TOKEN = <your-token>
             \end{lstlisting}   
         Now you are authenticated with your GitHub host and are able to proceed with the next step.
 %         \item Afterwards you are able to authenticate with your GitHub host via the GitHub CLI. You have multiple choices to do that.  
-%             \begin{lstlisting}[language=bash] 
+%             \begin{lstlisting}[style=bash]
 % gh auth login
 %             \end{lstlisting}   
         \item Clone the respective GitHub respository with: 
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 gh repo clone <link-to-repo>  
             \end{lstlisting} 
             In this case the link to the repo is \textit{themaxens/ball-bearings-with-quarkus}.
         \item Configure git to create signed commits. Replace <user-name> and <email> with your own credentials. 
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 git config gpg.program gpg && git config commit.gpgsign true
 git config user.name "<user-name>"
 git config user.email "<email>"
             \end{lstlisting}
         \item The next step is to create the private and public \ac{gpg} key \autocite[vgl.][]{create_gpg}.
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 gpg --full-generate-key 
             \end{lstlisting} 
         Afterwards you are prompted to specify details for the key. Here you can accept the defaults with the exception of the key size. Enter a key size of 4096. \\
         Finally you have to specify your userid information and assign a password. 
         \item \label{itm:gpg_key_start} Use the following command to list the long form of the \ac{gpg} keys. 
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 gpg --list-secret-keys --keyid-format=long 
             \end{lstlisting} 
         You get the follwing view, the expiration date may differ: 
@@ -164,27 +167,27 @@ gpg --list-secret-keys --keyid-format=long
         \end{figure}
         Copy the \ac{gpg} key ID, in this case: 3AA5C34371567BD2         
         \item Enter this text with your copied ID. Your \ac{gpg} key will be printed to console.
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 gpg --armor --export <id>
             \end{lstlisting}
         Copy the printed key, beginning with \textit{BEGIN PGP PUBLIC KEY BLOCK} and ending with \textit{END PGP PUBLIC KEY BLOCK}.  
         \item Now you are able to add the key to your GitHub Account: \url{https://github.com/settings/gpg/new}
         \item \label{itm:gpg_key_end}After you have added the key to GitHub, you have to tell Git your signing key. 
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 git config --unset gpg.format
             \end{lstlisting}   
         The \textit{--global} is not necessary in this case. The settings are only made for the current repository you are in. \\
         Use the same \ac{gpg} key id as  in \ref{itm:gpg_key_start} and enter this command. 
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 git config user.signingkey <id>
             \end{lstlisting}   
         You can configure Git to sign all commits by default with:
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 git config commit.gpgsign true
             \end{lstlisting} 
         From now on, your local commits will be signed.   
         \item Last but not least you have to configure the .bashrc file. It is a startup configuration file for the \ac{bash} which is loaded every time a terminal is opened. The export command will set the environment variable \textit{GPG\_TTY} to the correct terminal so that the passphrase for your \ac{gpg}-key can be queried correctly. The export command will be attached  to the .bashrc file in your home directory.  
-            \begin{lstlisting}[language=bash] 
+            \begin{lstlisting}[style=bash] 
 [ -f ~/.bashrc ] && echo 'export GPG_TTY=$(tty)' >> ~/.bashrc
             \end{lstlisting}
     \end{enumerate}
@@ -196,35 +199,35 @@ git config commit.gpgsign true
 
     \begin{enumerate}
         \item Install curl because it will be needed in future steps.
-        \begin{lstlisting}[language=bash] 
+        \begin{lstlisting}[style=bash] 
 apt-get update; apt-get install -y curl
         \end{lstlisting}
         \item Now you are able to install Quarkus via curl.
-        \begin{lstlisting}[language=bash, breaklines=true] 
+        \begin{lstlisting}[style=bash] 
 curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/
         \end{lstlisting}
 
-        \begin{lstlisting}[language=bash, breaklines=true] 
+        \begin{lstlisting}[style=bash] 
 curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
         \end{lstlisting}
 
         \item When you initially set up Quarkus, you have to create a new Quarkus application. In this case a getting started application would be created in the folder \textit{code-with-quarkus}. You are able to specify parameters to define the build system, for example Maven or Gradle. For more information about the available parameters, execute quarkus create app --help.
-        \begin{lstlisting}[language=bash, breaklines=true] 
+        \begin{lstlisting}[style=bash] 
 quarkus create && cd code-with-quarkus
         \end{lstlisting}
         \item Set \textit{quarkus.http.host} to 0.0.0.0 in application.properties under src/main/resources.
         \item Now you are able to run your application with:
-        \begin{lstlisting}[language=bash]
+        \begin{lstlisting}[style=bash]
 quarkus dev
         \end{lstlisting}
         When you start the application in dev mode, live coding is active which means that you don't have to restart the application to apply changes.
     \end{enumerate}
     To connect a database to your container (needed in future steps), you have to create a docker network. 
-    \begin{lstlisting}[language=bash]
+    \begin{lstlisting}[style=bash]
 docker network create --driver bridge quarkus-net
     \end{lstlisting}
     Afterwards you are able to attach your container to this network: 
-    \begin{lstlisting}[language=bash]
+    \begin{lstlisting}[style=bash]
 docker network connect quarkus-net <container-name>
     \end{lstlisting}
 
@@ -233,22 +236,22 @@ docker network connect quarkus-net <container-name>
         Run the following commands in a terminal. 
         \begin{enumerate}
             \item Build a docker image from the provided Dockerfile. You have to replace the tokens <REPLACE-ME> with your credentials and your API-Token:
-            \begin{lstlisting}[language=bash, breaklines=true]
+            \begin{lstlisting}[style=bash]
 docker build --build-arg GH_TOKEN=<REPLACE-ME> --build-arg username=<REPLACE-ME> --build-arg email=<REPLACE-ME> -t quarkus_image .
             \end{lstlisting}
-            \item Before you are able to create and run the container, you have to create a seperate network for your container, for example to connect a database (\ref{sec:database}). \label{item:network}
-            \begin{lstlisting}[language=bash]
+            \item \label{item:network} Before you are able to create and run the container, you have to create a seperate network for your container, for example to connect a database (\ref{sec:database}). 
+            \begin{lstlisting}[style=bash]
 docker network create --driver bridge quarkus-net
             \end{lstlisting}
             \item After you have created your image, you can create a container which is attached to the currently created network:
-            \begin{lstlisting}[language=bash, breaklines=true]
+            \begin{lstlisting}[style=bash]
 docker run --network quarkus-net --name quarkus -it quarkus_image
             \end{lstlisting} 
         \end{enumerate}
         The installation of the gpg keys to sign your commits has to be done manually as well but the project provides a generation script \textit{gen-key-script}. Attach to the Quarkus container and follow these steps: 
         \begin{enumerate}
             \item Before executing the generation script you have to replace the \textit{REPLACE-ME}-tokens with your own credentials. Do not forget your passphrase, you will need it for signing your commits. Afterwards you can run the script: 
-            \begin{lstlisting}[language=bash]
+            \begin{lstlisting}[style=bash]
 gpg --batch --gen-key gen-key-script
             \end{lstlisting}
             \item Now you have to tell git and GitHub your signing key. Follow the steps described from \ref{itm:gpg_key_start} to \ref{itm:gpg_key_end} in section \ref{sec:quarkus_remote}.
@@ -278,8 +281,8 @@ gpg --batch --gen-key gen-key-script
     \section{How to set up a database container}\label{sec:database}
         In this section you will get some information how to create a database within a container and connect it to your quarkus container.  
         \begin{enumerate}
-            \item Create and run a PostgreSQL database. The quarkus-net network has to be already created (look at \ref{item:network}):
-            \begin{lstlisting}[language=bash, breaklines=true]
+            \item Create and run a PostgreSQL database. The quarkus-net network has to be already created (look at step \ref{item:network} in section \ref{sec:dockerfile}):
+            \begin{lstlisting}[style=bash]
 docker run --rm=true --name hibernate --network quarkus-net -e POSTGRES_USER=hibernate -e POSTGRES_PASSWORD=hibernate -e POSTGRES_DB=hibernate -p 5432:5432 postgres:14.1
             \end{lstlisting}
             \item You will find a file named \textit{.env.example} inside the root of the project. Rename this file to \textit{.env}. This is the place where your environment variables are stored. Make sure that the varibale \textit{POSTGRESQL\_SERVICE\_HOST} is set to \textit{hibernate}. \\
