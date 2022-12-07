@@ -27,7 +27,9 @@ RUN git config gpg.program gpg
 # RUN git config commit.gpgsign true
 RUN git config user.name "${username}"
 RUN git config user.email "${email}"
+RUN git pull
 RUN curl -Ls https://sh.jbang.dev | bash -s - trust add https://repo1.maven.org/maven2/io/quarkus/quarkus-cli/ 
 RUN curl -Ls https://sh.jbang.dev | bash -s - app install --fresh --force quarkus@quarkusio
+RUN [ -f ~/.bashrc ] && echo 'export GPG_TTY=$(tty)' >> ~/.bashrc
 EXPOSE 8080
 CMD ["bash"]
