@@ -1,5 +1,6 @@
 package org.dhbw.mosbach.ai;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -33,10 +34,6 @@ public class BearingResource {
     @POST
     @Transactional
     public Response create(OArrangement oArrangement) {
-        oArrangement.id = null;
-        oArrangement.bearingA.id = null;
-        oArrangement.bearingB.id = null;
-        oArrangement.load.id = null;
         oArrangement.persist();
         return Response.ok(oArrangement).status(201).build();
     }
@@ -44,18 +41,14 @@ public class BearingResource {
     @PUT
     @Path("{id}")
     @Transactional
-    public OArrangement update(Long id, OArrangement oArrangement) {
+    public Response update(Long id, OArrangement oArrangement) {
         OArrangement entity = OArrangement.findById(id);
         if (entity != null) {
             entity.delete();
-            oArrangement.id = null;
-            oArrangement.bearingA.id = null;
-            oArrangement.bearingB.id = null;
-            oArrangement.load.id = null;
             oArrangement.persist();
-            return oArrangement;
+            return Response.ok(oArrangement).status(200).build();
         } else {
-            return null;
+            return Response.status(400).build();
         }
     }
 
@@ -70,6 +63,6 @@ public class BearingResource {
         } else {
             return Response.status(400).build();
         }
-        
+
     }
 }
