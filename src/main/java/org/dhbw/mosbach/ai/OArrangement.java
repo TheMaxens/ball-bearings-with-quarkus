@@ -9,6 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
@@ -32,6 +37,7 @@ public class OArrangement extends PanacheEntityBase {
     public double a;
     public double b;
     public double c;
+    @JsonProperty(access = Access.READ_ONLY)
     public double lh10;
 
     public OArrangement() {
@@ -48,4 +54,9 @@ public class OArrangement extends PanacheEntityBase {
         this.b = b;
         this.c = c;
     }
+
+    @JsonIgnore
+    public void setId(Long id) {
+        this.id = id;
+    }   
 }

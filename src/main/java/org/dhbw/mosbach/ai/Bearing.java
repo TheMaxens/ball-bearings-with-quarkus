@@ -6,6 +6,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
@@ -19,9 +23,13 @@ public class Bearing extends PanacheEntityBase {
     public double y;
     public double e;
     public double xB1;
+    @JsonProperty(access = Access.READ_ONLY)
     public double p;
+    @JsonProperty(access = Access.READ_ONLY)
     public double fr;
+    @JsonProperty(access = Access.READ_ONLY)
     public double fa;
+    @JsonProperty(access = Access.READ_ONLY)
     public double lh10;
 
     public Bearing() {
@@ -33,5 +41,10 @@ public class Bearing extends PanacheEntityBase {
         this.y = y;
         this.e = e;
         this.xB1 = xB1;
+    }   
+
+    @JsonIgnore
+    public void setId(Long id) {
+        this.id = id;
     }   
 }

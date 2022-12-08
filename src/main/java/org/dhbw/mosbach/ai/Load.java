@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 @Entity
@@ -31,4 +33,9 @@ public class Load extends PanacheEntityBase {
         this.xr = xr;
         this.ya = ya;
     }
+
+    @JsonIgnore
+    public void setId(Long id) {
+        this.id = id;
+    }   
 }
