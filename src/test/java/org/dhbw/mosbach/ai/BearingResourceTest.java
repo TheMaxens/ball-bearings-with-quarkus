@@ -1,33 +1,98 @@
 package org.dhbw.mosbach.ai;
 
-import org.junit.jupiter.api.Test;
-
-import io.quarkus.test.junit.QuarkusTest;
-
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 
 import javax.ws.rs.core.MediaType;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import io.quarkus.test.junit.QuarkusTest;
+
 @QuarkusTest
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class BearingResourceTest {
 
     @Test
+    @Order(1)
     public void testGet() {
-        given().when().get("/bearing").then().statusCode(200).contentType(MediaType.APPLICATION_JSON).body("$.size()", is(0));
+        given()
+                .when()
+                .get("/bearing")
+                .then()
+                .statusCode(200)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("$", hasSize(0));
     }
 
     @Test
+    @Order(2)
     public void testCreate() {
-        given().header("Content-Type", "application/json").body("{\"id\": 0,\"bearingA\": {\"id\": 0,\"cdyn\": 0,\"y\": 0,\"e\": 0,\"xB1\": 0,\"p\": 0,\"fr\": 0,\"fa\": 0,\"lh10\": 0},\"bearingB\": {\"id\": 0,\"cdyn\": 0,\"y\": 0,\"e\": 0,\"xB1\": 0,\"p\": 0,\"fr\": 0,\"fa\": 0,\"lh10\": 0},\"xD1\": 0,\"xD2\": 0,\"load\": {\"id\": 0,\"fr\": 0,\"fa\": 0,\"n\": 0,\"xr\": 0,\"ya\": 0},\"a\": 0,\"b\": 0,\"c\": 0,\"lh10\": 0}").when().post("/bearing").then().statusCode(201).contentType(MediaType.APPLICATION_JSON).body("a", equalTo(0F), "b", equalTo(0F), "c", equalTo(0F));
+        OArrangement object = new OArrangement(new Bearing(0, 0, 0, 0), new Bearing(0, 0, 0, 0), 0, 0,
+                new Load(0, 0, 0, 0, 0), 0, 0, 0);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(createJsonFromObject(object))
+                .when()
+                .post("/bearing")
+                .then()
+                .statusCode(201);
     }
 
     @Test
+    @Order(3)
     public void testUpdate() {
-        // given().header("Content-Type", "application/json").body("{\"id\": 0,\"bearingA\": {\"id\": 0,\"cdyn\": 0,\"y\": 0,\"e\": 0,\"xB1\": 0,\"p\": 0,\"fr\": 0,\"fa\": 0,\"lh10\": 0},\"bearingB\": {\"id\": 0,\"cdyn\": 0,\"y\": 0,\"e\": 0,\"xB1\": 0,\"p\": 0,\"fr\": 0,\"fa\": 0,\"lh10\": 0},\"xD1\": 0,\"xD2\": 0,\"load\": {\"id\": 0,\"fr\": 0,\"fa\": 0,\"n\": 0,\"xr\": 0,\"ya\": 0},\"a\": 12,\"b\": 15,\"c\": 20,\"lh10\": 0}").when().put("/bearing/{id}", 1).then().statusCode(200).contentType(MediaType.APPLICATION_JSON).body("a", is(equalTo(12F)), "b", is(equalTo(15F)), "c", is(equalTo(20F)));
-    
-        given().header("Content-Type", "application/json").body("{\"id\": 0,\"bearingA\": {\"id\": 0,\"cdyn\": 0,\"y\": 0,\"e\": 0,\"xB1\": 0,\"p\": 0,\"fr\": 0,\"fa\": 0,\"lh10\": 0},\"bearingB\": {\"id\": 0,\"cdyn\": 0,\"y\": 0,\"e\": 0,\"xB1\": 0,\"p\": 0,\"fr\": 0,\"fa\": 0,\"lh10\": 0},\"xD1\": 0,\"xD2\": 0,\"load\": {\"id\": 0,\"fr\": 0,\"fa\": 0,\"n\": 0,\"xr\": 0,\"ya\": 0},\"a\": 12,\"b\": 15,\"c\": 20,\"lh10\": 0}").when().put("/bearing/{id}", 1).then().statusCode(200).contentType(MediaType.APPLICATION_JSON).body(is("{\"id\": 5,\"bearingA\": {\"id\": 6,\"cdyn\": 0,\"y\": 0,\"e\": 0,\"xB1\": 0,\"p\": 0,\"fr\": 0,\"fa\": 0,\"lh10\": 0},\"bearingB\": {\"id\": 7,\"cdyn\": 0,\"y\": 0,\"e\": 0,\"xB1\": 0,\"p\": 0,\"fr\": 0,\"fa\": 0,\"lh10\": 0},\"xD1\": 0,\"xD2\": 0,\"load\": {\"id\": 8,\"fr\": 0,\"fa\": 0,\"n\": 0,\"xr\": 0,\"ya\": 0},\"a\": 12,\"b\": 15,\"c\": 20,\"lh10\": 0}"));
+        OArrangement object = new OArrangement(new Bearing(0, 0, 0, 0), new Bearing(0, 0, 0, 0), 0, 0,
+                new Load(0, 0, 0, 0, 0), 10, 20, 30);
+
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(createJsonFromObject(object))
+                .when()
+                .put("/bearing/{id}", 1)
+                .then()
+                .statusCode(204);
     }
 
+    @Test
+    @Order(4)
+    public void testGetSingle() {
+        given()
+                .when()
+                .get("/bearing/{id}", 2)
+                .then()
+                .statusCode(200)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("id", equalTo(2), "a", equalTo(10F), "b", equalTo(20F), "c", equalTo(30F));
+    }
+
+    @Test
+    @Order(5)
+    public void testDelete() {
+        given()
+                .when()
+                .delete("/bearing/{id}", 2)
+                .then()
+                .statusCode(204);
+    }
+
+    // helper function to create a JSON from an object
+    private String createJsonFromObject(OArrangement oArrangement) {
+        ObjectMapper om = new ObjectMapper();
+        String json = "";
+        try {
+            json = om.writeValueAsString(oArrangement);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
 }

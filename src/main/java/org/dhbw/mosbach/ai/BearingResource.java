@@ -34,7 +34,7 @@ public class BearingResource {
     @Transactional
     public Response create(OArrangement oArrangement) {
         oArrangement.persist();
-        return Response.ok(oArrangement).status(201).build();
+        return Response.status(201).build();
     }
 
     @PUT
@@ -45,7 +45,7 @@ public class BearingResource {
         if (entity != null) {
             entity.delete();
             oArrangement.persist();
-            return Response.ok(oArrangement).status(200).build();
+            return Response.status(204).build();
         } else {
             return Response.status(400).build();
         }
@@ -62,6 +62,5 @@ public class BearingResource {
         } else {
             return Response.status(400).build();
         }
-
     }
 }
