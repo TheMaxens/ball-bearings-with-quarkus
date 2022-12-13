@@ -1,6 +1,5 @@
 package org.dhbw.mosbach.ai;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import javax.transaction.Transactional;
