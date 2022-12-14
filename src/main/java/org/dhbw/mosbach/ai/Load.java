@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,10 +18,15 @@ public class Load extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loadSequence")
     public Long id; 
 
+    @Min(0)
     public double fr;
+    @Min(0)
     public double fa;
+    @Min(0)
     public double n;
+    @Min(0)
     public double xr;
+    @Min(0)
     public double ya;
 
     public Load() {

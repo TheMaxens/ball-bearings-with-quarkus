@@ -3,6 +3,7 @@ package org.dhbw.mosbach.ai;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -32,7 +33,7 @@ public class BearingResource {
 
     @POST
     @Transactional
-    public Response create(OArrangement oArrangement) {
+    public Response create(@Valid OArrangement oArrangement) {
         oArrangement.persist();
         return Response.status(201).build();
     }
@@ -40,7 +41,7 @@ public class BearingResource {
     @PUT
     @Path("{id}")
     @Transactional
-    public Response update(Long id, OArrangement oArrangement) {
+    public Response update(Long id, @Valid OArrangement oArrangement) {
         OArrangement entity = OArrangement.findById(id);
         if (entity != null) {
             entity.delete();

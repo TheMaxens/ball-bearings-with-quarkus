@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,9 +20,13 @@ public class Bearing extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bearingSequence")
     public Long id; 
 
+    @Min(0)
     public double cdyn;
+    @Min(0)
     public double y;
+    @Min(0)
     public double e;
+    @Min(0)
     public double xB1;
     @JsonProperty(access = Access.READ_ONLY)
     public double p;

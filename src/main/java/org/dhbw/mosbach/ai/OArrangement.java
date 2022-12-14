@@ -8,14 +8,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;  
 
 @Entity
+@Valid
 public class OArrangement extends PanacheEntityBase {
     @Id
     @SequenceGenerator(name = "oArrangementSequence", sequenceName = "oArrangementId_seq", allocationSize = 1, initialValue = 1)
@@ -24,17 +27,25 @@ public class OArrangement extends PanacheEntityBase {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bearingA_id", referencedColumnName = "id")
+    @Valid
     public Bearing bearingA;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bearingB_id", referencedColumnName = "id")
+    @Valid
     public Bearing bearingB;
+    @Min(0)
     public double xD1;
+    @Min(0)
     public double xD2;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "load_id", referencedColumnName = "id")
+    @Valid
     public Load load;
+    @Min(0)
     public double a;
+    @Min(0)
     public double b;
+    @Min(0)
     public double c;
     @JsonProperty(access = Access.READ_ONLY)
     public double lh10;
