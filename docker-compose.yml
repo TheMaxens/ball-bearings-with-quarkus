@@ -1,3 +1,5 @@
+# run docker compose up -d to create the containers
+# the variables GH_TOKEN, uname and email has to be set in the .env file 
 version: "3.9"
 services:
   quarkus:
