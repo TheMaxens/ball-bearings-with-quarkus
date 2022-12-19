@@ -292,7 +292,7 @@ docker run --rm=true --name hibernate --network quarkus-net -e POSTGRES_USER=hib
         Now your Quarkus container and the database container are in the same network and are able to communicate with each other. 
     
     \section{How to use docker-compose for setup}\label{sec:docker-compose}
-        In this section you will get some instructions how to use the \textit{docker-compose.yml} file to set up the remote development. The docker-compose consists of two several parts: the quarkus-dev container and the postgres database container. The manual steps described in \ref{sec:database} for example are not necessary anymore beacuse they will be already included. \\
+        In this section you will get some instructions how to use the \textit{docker-compose.yml} file to set up the remote development. The docker-compose consists of two several parts: the quarkus-dev container and the postgres database container. The manual steps described in \ref{sec:database} for example are not necessary anymore because they will be already included. \\
         The \textit{docker-compose.yml} file is located in the root of the project. Before executing the docker compose command you have to make sure that the corresponding variables in your .env file are set. It is about \textit{GH\_TOKEN}, \textit{uname} and \textit{email}. There is an explanation for the variables in the .env file. When these variables are set you are able to continue.
         \begin{enumerate}
             \item Create and run the containers in background with option -d:
