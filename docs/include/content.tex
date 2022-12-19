@@ -99,7 +99,7 @@
 
 \chapter{Remote development}
     This chapter is about setting up git and Quarkus in a Docker container. \\
-    You can either setup your development manually, as described in section \ref{sec:git_remote} and \ref{sec:quarkus_remote} or you can use the provided ready-to-use Dockerfile in section \ref{sec:dockerfile}. I would recommend the second procedure. \\
+    You can either setup your development manually, as described in section \ref{sec:git_remote} and \ref{sec:quarkus_remote} or you can use the provided ready-to-use Dockerfile in section \ref{sec:dockerfile} or you can use the docker-compose file in section \ref{sec:docker-compose}. I would recommend the third procedure (docker-compose) because you have to execute only one command and you will receive the whole environment. \\
     Additionally there will be a section \ref{sec:attach} about how to attach VSCode to a running Docker container. \\
     As prepartion, you have to start Docker Desktop. 
 
@@ -252,8 +252,9 @@ docker run --network quarkus-net --name quarkus -it quarkus_image
         \begin{enumerate}
             \item Before executing the generation script you have to replace the \textit{REPLACE-ME}-tokens with your own credentials. Do not forget your passphrase, you will need it for signing your commits. Afterwards you can run the script: 
             \begin{lstlisting}[style=bash]
-gpg --batch --gen-key gen-key-script
+gpg --batch --gen-key gen-key-script && git checkout gen-key-script
             \end{lstlisting}
+            The checkout statement ensures that the file is reset so that the password does not end up in git.
             \item Now you have to tell git and GitHub your signing key. Follow the steps described from \ref{itm:gpg_key_start} to \ref{itm:gpg_key_end} in section \ref{sec:quarkus_remote}.
         \end{enumerate}
         
@@ -289,7 +290,44 @@ docker run --rm=true --name hibernate --network quarkus-net -e POSTGRES_USER=hib
             When you are not developing inside the quarkus container but on your local machine, you have to comment out the mentioned line. 
         \end{enumerate}
         Now your Quarkus container and the database container are in the same network and are able to communicate with each other. 
+    
+    \section{How to use docker-compose for setup}\label{sec:docker-compose}
+        In this section you will get some instructions how to use the \textit{docker-compose.yml} file to set up the remote development. The docker-compose consists of two several parts: the quarkus-dev container and the postgres database container. The manual steps described in \ref{sec:database} for example are not necessary anymore because they will be already included. \\
+        The \textit{docker-compose.yml} file is located in the root of the project. Before executing the docker compose command you have to make sure that the corresponding variables in your .env file are set. It is about \textit{GH\_TOKEN}, \textit{uname} and \textit{email}. There is an explanation for the variables in the .env file. When these variables are set you are able to continue.
+        \begin{enumerate}
+            \item Create and run the containers in background with option -d:
+            \begin{lstlisting}[style=bash]
+docker compose up -d
+            \end{lstlisting}
+        \end{enumerate}
+        Now the quarkus-dev container and the postgres database container are both running. 
+            
+        Similar to \ref{sec:dockerfile}, the installation of the gpg keys to sign your commits has to be done manually but the project provides a generation script gen-key-script. Attach to the Quarkus container and follow these steps:
+        \begin{enumerate}
+            \item Before executing the generation script you have to replace the \textit{REPLACE-ME}-tokens with your own credentials. Do not forget your passphrase, you will need it for signing your commits. Afterwards you can run the script: 
+            \begin{lstlisting}[style=bash]
+gpg --batch --gen-key gen-key-script && git checkout gen-key-script
+            \end{lstlisting}
+            The checkout statement ensures that the file is reset so that the password does not end up in git.
+            \item Now you have to tell git and GitHub your signing key. Follow the steps described from \ref{itm:gpg_key_start} to \ref{itm:gpg_key_end} in section \ref{sec:quarkus_remote}.
+            \end{enumerate}
 
+        You are able to start and stop your container composition with:
+        \begin{itemize}
+            \item 
+                \begin{lstlisting}[style=bash]
+docker compose start 
+                \end{lstlisting}
+                
+            \item 
+                \begin{lstlisting}[style=bash]
+docker compose stop  
+                \end{lstlisting}
+            \end{itemize}
+
+
+
+ 
     
 
 \chapter{Implementation}

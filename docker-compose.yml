@@ -1,0 +1,27 @@
+# run docker compose up -d to create the containers
+# the variables GH_TOKEN, uname and email has to be set in the .env file 
+version: "3.9"
+services:
+  quarkus:
+    container_name: quarkus
+    image: quarkus_image
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GH_TOKEN: ${GH_TOKEN}
+        username: ${uname}
+        email: ${email}
+    ports:
+      - "5000:8080"
+    tty: true
+    stdin_open: true
+  postgres:
+    container_name: postgres
+    image: "postgres:14.1"
+    environment:
+      POSTGRES_USER: hibernate
+      POSTGRES_PASSWORD: hibernate
+      POSTGRES_DB: hibernate
+    ports:
+      - 5432:5432
