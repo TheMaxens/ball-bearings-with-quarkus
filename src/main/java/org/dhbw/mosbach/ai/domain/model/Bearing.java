@@ -1,4 +1,4 @@
-package org.dhbw.mosbach.ai;
+package org.dhbw.mosbach.ai.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

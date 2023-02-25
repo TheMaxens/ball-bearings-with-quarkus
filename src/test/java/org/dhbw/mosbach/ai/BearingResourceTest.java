@@ -6,6 +6,9 @@ import static org.hamcrest.Matchers.hasSize;
 
 import javax.ws.rs.core.MediaType;
 
+import org.dhbw.mosbach.ai.domain.model.Bearing;
+import org.dhbw.mosbach.ai.domain.model.Load;
+import org.dhbw.mosbach.ai.domain.model.OArrangement;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
