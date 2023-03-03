@@ -1,8 +1,22 @@
 package org.dhbw.mosbach.ai.adapter.in;
 
+import org.dhbw.mosbach.ai.adapter.in.resource.OArrangementResource;
+import org.dhbw.mosbach.ai.domain.model.OArrangement;
 import org.dhbw.mosbach.ai.usecase.in.OArrangementCommand;
 import org.dhbw.mosbach.ai.usecase.in.OArrangementQuery;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+@Path("/bearing")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class OArrangementController {
 
     private OArrangementQuery oArrangementQuery;
@@ -16,23 +30,35 @@ public class OArrangementController {
         this.oArrangementCommand = oArrangementCommand;
     }
 
-    // @GetMapping("/{vin}")
-    public VehicleResource readVehicle(@PathVariable("vin") String vin) {
-        return mapper.mapVehicleToVehicleResource(vehicleQuery.findByVin(new Vin(vin)));
+    @GET
+    @Path("{id}")
+    public OArrangementResource getSingle(Long id) {
+        return mapper.mapOArrangementToOArrangementResource(oArrangementQuery.getSingle(id));
     }
 
-    // @PutMapping("/{vin}")
-    public VehicleResource updateVehicle(@PathVariable("vin") String vin,
-            @RequestBody VehicleMotionDataResource resource) {
-        VehicleMotionData vehicleMotionData = mapper.mapVehicleResourceToVehicleMotionData(resource);
-        Vehicle updatedVehicle = vehicleCommand.update(new Vin(vin), vehicleMotionData);
-        return mapper.mapVehicleToVehicleResource(updatedVehicle);
+    // public OArrangementResource get() {
+    // return mapper.mapOArrangementToOArrangementResource(oArrangementQuery.get());
+    // }
+
+    @PUT
+    @Path("{id}")
+    public OArrangementResource update(Long id, OArrangementResource resource) {
+        OArrangement oArrangement = mapper.mapOArrangementResourceToOArrangement(resource);
+        OArrangement updatedOArrangement = oArrangementCommand.update(id, oArrangement);
+        return mapper.mapOArrangementToOArrangementResource(updatedOArrangement);
     }
 
-    // @PostMapping
-    public VehicleResource createVehicle(@RequestBody VehicleResource resource) {
-        Vehicle createdVehice = vehicleCommand.create(mapper.mapVehicleResourceToVehicle(resource));
-        return mapper.mapVehicleToVehicleResource(createdVehice);
+    @POST
+    public OArrangementResource create(OArrangementResource resource) {
+        OArrangement createdOArrangement = oArrangementCommand
+                .create(mapper.mapOArrangementResourceToOArrangement(resource));
+        return mapper.mapOArrangementToOArrangementResource(createdOArrangement);
+    }
+
+    @DELETE
+    @Path("{id}")
+    public boolean delete(Long id) {
+        return oArrangementCommand.delete(id);
     }
 
 }
