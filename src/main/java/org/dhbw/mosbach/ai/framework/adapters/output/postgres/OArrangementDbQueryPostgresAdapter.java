@@ -15,6 +15,7 @@ import org.dhbw.mosbach.ai.framework.adapters.output.postgres.repository.OArrang
 @ApplicationScoped
 public class OArrangementDbQueryPostgresAdapter implements OArrangementDbQueryOutputPort {
 
+    @Inject
     OArrangementRepository oArrangementRepository;
 
     @Override

@@ -12,6 +12,7 @@ import org.dhbw.mosbach.ai.framework.adapters.output.postgres.repository.OArrang
 @ApplicationScoped
 public class OArrangementDbCommandPostgresAdapter implements OArrangementDbCommandOutputPort {
 
+    @Inject
     OArrangementRepository oArrangementRepository;
 
     @Override
