@@ -5,9 +5,9 @@ import org.dhbw.mosbach.ai.domain.vo.Id;
 import org.dhbw.mosbach.ai.framework.adapters.input.rest.request.CreateOArrangement;
 
 public interface OArrangementDbCommandOutputPort {
-    OArrangement saveOArrangement(OArrangement oArrangement);
+    CreateOArrangement saveOArrangement(CreateOArrangement createOArrangement);
 
-    OArrangement updateOArrangement(Id id, OArrangement oArrangement);
+    CreateOArrangement updateOArrangement(Id id, CreateOArrangement createOArrangement);
 
     boolean deleteOArrangement(Id id);
 }

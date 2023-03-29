@@ -3,6 +3,7 @@ package org.dhbw.mosbach.ai.framework.adapters.input.rest.request;
 import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,9 +24,6 @@ public class CreateLoad {
 
     @Min(0)
     private double n;
-
-    @Min(0)
-    private double xD2;
 
     @Min(0)
     private double xr;

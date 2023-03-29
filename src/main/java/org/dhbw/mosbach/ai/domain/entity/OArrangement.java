@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 public class OArrangement {
     public Id id;
-    public Bearing bearingA;
-    public Bearing bearingB;
-    public double xD1;
-    public double xD2;
+    public Bearing bearing_a;
+    public Bearing bearing_b;
+    public double xd1;
+    public double xd2;
     public Load load;
     public double a;
     public double b;
@@ -20,13 +20,13 @@ public class OArrangement {
     public OArrangement() {
     }
 
-    public OArrangement(Id id, Bearing bearingA, Bearing bearingB, double xD1, double xD2, Load load, double a, double b,
+    public OArrangement(Id id, Bearing bearing_a, Bearing bearing_b, double xd1, double xd2, Load load, double a, double b,
             double c) {
         this.id = id; 
-        this.bearingA = bearingA;
-        this.bearingB = bearingB;
-        this.xD1 = xD1;
-        this.xD2 = xD2;
+        this.bearing_a = bearing_a;
+        this.bearing_b = bearing_b;
+        this.xd1 = xd1;
+        this.xd2 = xd2;
         this.load = load;
         this.a = a;
         this.b = b;

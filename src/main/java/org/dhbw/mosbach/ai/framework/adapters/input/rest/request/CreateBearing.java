@@ -3,6 +3,7 @@ package org.dhbw.mosbach.ai.framework.adapters.input.rest.request;
 import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,5 +26,5 @@ public class CreateBearing {
     private double e;
 
     @Min(0)
-    private double xB1;
+    private double xb1;
 }

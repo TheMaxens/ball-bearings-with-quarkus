@@ -49,13 +49,13 @@ public class OArrangementManagementAdapter {
     @Transactional
     @PUT
     @Path("/{id}")
-    public OArrangement update(@PathParam("id") Id id, CreateOArrangement resource) {
-        return oArrangementCommand.update(id, resource);
+    public CreateOArrangement update(@PathParam("id") String id, @Valid CreateOArrangement resource) {
+        return oArrangementCommand.update(Id.withId(id), resource);
     }
 
     @Transactional
     @POST
-    public OArrangement create(@Valid CreateOArrangement resource) {
+    public CreateOArrangement create(@Valid CreateOArrangement resource) {
         return oArrangementCommand.create(resource);
     }
 

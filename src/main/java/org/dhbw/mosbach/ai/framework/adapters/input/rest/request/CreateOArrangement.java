@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,16 +18,16 @@ import lombok.NoArgsConstructor;
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class CreateOArrangement {
     @Valid
-    private CreateBearing bearingA;
+    private CreateBearing bearing_a;
 
     @Valid
-    private CreateBearing bearingB;
+    private CreateBearing bearing_b;
 
     @Min(0)
-    private double xD1;
+    private double xd1;
 
     @Min(0)
-    private double xD2;
+    private double xd2;
 
     @Valid
     private CreateLoad load;
