@@ -2,8 +2,6 @@ package org.dhbw.mosbach.ai.domain.entity;
 
 import org.dhbw.mosbach.ai.domain.vo.Id;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import lombok.Getter;
 
 @Getter
