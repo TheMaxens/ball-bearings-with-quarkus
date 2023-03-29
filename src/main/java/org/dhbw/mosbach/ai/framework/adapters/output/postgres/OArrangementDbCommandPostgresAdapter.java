@@ -30,7 +30,6 @@ public class OArrangementDbCommandPostgresAdapter implements OArrangementDbComma
 
     @Override
     public boolean deleteOArrangement(Id id) {
-        System.out.println(oArrangementRepository.deleteById(id.getUuid()));
-        return true;
+        return oArrangementRepository.deleteById(id.getUuid());
     }
 }

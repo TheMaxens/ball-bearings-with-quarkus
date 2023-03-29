@@ -1,7 +1,8 @@
 package org.dhbw.mosbach.ai.framework.adapters.input.rest.request;
 
+import javax.validation.constraints.Min;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,16 +15,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class CreateBearing {
-
-    @JsonProperty
+    @Min(0)
     private double cdyn;
 
-    @JsonProperty
+    @Min(0)
     private double y;
 
-    @JsonProperty
+    @Min(0)
     private double e;
 
-    @JsonProperty
+    @Min(0)
     private double xB1;
 }

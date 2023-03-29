@@ -1,7 +1,8 @@
 package org.dhbw.mosbach.ai.framework.adapters.input.rest.request;
 
+import javax.validation.constraints.Min;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,21 +15,21 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class CreateLoad {
-    @JsonProperty
+    @Min(0)
     private double fr;
 
-    @JsonProperty
+    @Min(0)
     private double fa;
 
-    @JsonProperty
+    @Min(0)
     private double n;
 
-    @JsonProperty
+    @Min(0)
     private double xD2;
 
-    @JsonProperty
+    @Min(0)
     private double xr;
 
-    @JsonProperty
+    @Min(0)
     private double ya;
 }

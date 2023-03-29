@@ -1,10 +1,9 @@
 package org.dhbw.mosbach.ai.framework.adapters.input.rest.request;
 
-import org.dhbw.mosbach.ai.domain.entity.Bearing;
-import org.dhbw.mosbach.ai.domain.entity.Load;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,28 +16,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class CreateOArrangement {
-
-    @JsonProperty
+    @Valid
     private CreateBearing bearingA;
 
-    @JsonProperty
+    @Valid
     private CreateBearing bearingB;
 
-    @JsonProperty
+    @Min(0)
     private double xD1;
 
-    @JsonProperty
+    @Min(0)
     private double xD2;
 
-    @JsonProperty
+    @Valid
     private CreateLoad load;
 
-    @JsonProperty
+    @Min(0)
     private double a;
 
-    @JsonProperty
+    @Min(0)
     private double b;
 
-    @JsonProperty
+    @Min(0)
     private double c;
 }

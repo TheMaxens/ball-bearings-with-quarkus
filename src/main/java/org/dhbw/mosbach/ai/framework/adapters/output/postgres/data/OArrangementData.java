@@ -38,34 +38,25 @@ public class OArrangementData {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bearingA_id", referencedColumnName = "id")
-    @Valid
     private BearingData bearingA;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "bearingB_id", referencedColumnName = "id")
-    @Valid
     private BearingData bearingB;
 
-    @Min(0)
     private double xD1;
 
-    @Min(0)
     private double xD2;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "load_id", referencedColumnName = "id")
-    @Valid
     private LoadData load;
 
-    @Min(0)
     private double a;
 
-    @Min(0)
     private double b;
 
-    @Min(0)
     private double c;
 
-    @JsonProperty(access = Access.READ_ONLY)
     private double lh10;
 }

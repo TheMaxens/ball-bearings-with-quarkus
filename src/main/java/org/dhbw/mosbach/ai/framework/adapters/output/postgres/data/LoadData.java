@@ -26,18 +26,13 @@ public class LoadData {
     @GeneratedValue
     private UUID id;
 
-    @Min(0)
     private double fr;
 
-    @Min(0)
     private double fa;
 
-    @Min(0)
     private double n;
 
-    @Min(0)
     private double xr;
 
-    @Min(0)
     private double ya;
 }

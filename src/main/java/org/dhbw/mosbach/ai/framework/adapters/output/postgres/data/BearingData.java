@@ -29,27 +29,19 @@ public class BearingData {
     @GeneratedValue
     private UUID id;
 
-    @Min(0)
     private double cdyn;
 
-    @Min(0)
     private double y;
 
-    @Min(0)
     private double e;
 
-    @Min(0)
     private double xB1;
 
-    @JsonProperty(access = Access.READ_ONLY)
     private double p;
 
-    @JsonProperty(access = Access.READ_ONLY)
     private double fr;
 
-    @JsonProperty(access = Access.READ_ONLY)
     private double fa;
 
-    @JsonProperty(access = Access.READ_ONLY)
     private double lh10;
 }
