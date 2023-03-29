@@ -1,5 +1,6 @@
 package org.dhbw.mosbach.ai.framework.adapters.output.postgres;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -26,8 +27,12 @@ public class OArrangementDbQueryPostgresAdapter implements OArrangementDbQueryOu
 
     @Override
     public List<OArrangement> findAllOArrangement() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAllOArrangement'");
+        List<OArrangementData> oArrangementDatas = oArrangementRepository.listAll();
+        List<OArrangement> oArrangements = new ArrayList<>(); 
+        for (OArrangementData element : oArrangementDatas) {
+            oArrangements.add(OArrangementMapper.oArrangementDataToDomain(element));
+        }
+        return oArrangements;
     }
 
 }

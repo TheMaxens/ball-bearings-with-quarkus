@@ -16,7 +16,8 @@ public class Load {
     public Load() {
     }
 
-    public Load(double fr, double fa, double n, double xr, double ya) {
+    public Load(Id id, double fr, double fa, double n, double xr, double ya) {
+        this.id = id;
         this.fr = fr;
         this.fa = fa;
         this.n = n;

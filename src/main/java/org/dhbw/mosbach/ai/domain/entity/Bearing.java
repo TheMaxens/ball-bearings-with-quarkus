@@ -20,7 +20,8 @@ public class Bearing {
 
     }
 
-    public Bearing(double cdyn, double y, double e, double xB1) {
+    public Bearing(Id id, double cdyn, double y, double e, double xB1) {
+        this.id = id;
         this.cdyn = cdyn;
         this.y = y;
         this.e = e;

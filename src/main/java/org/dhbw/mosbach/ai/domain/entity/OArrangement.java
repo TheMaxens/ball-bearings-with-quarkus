@@ -20,8 +20,9 @@ public class OArrangement {
     public OArrangement() {
     }
 
-    public OArrangement(Bearing bearingA, Bearing bearingB, double xD1, double xD2, Load load, double a, double b,
+    public OArrangement(Id id, Bearing bearingA, Bearing bearingB, double xD1, double xD2, Load load, double a, double b,
             double c) {
+        this.id = id; 
         this.bearingA = bearingA;
         this.bearingB = bearingB;
         this.xD1 = xD1;

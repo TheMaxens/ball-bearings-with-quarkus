@@ -26,8 +26,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "bearings")
 public class BearingData {
     @Id
-    @SequenceGenerator(name = "bearingSequence", sequenceName = "bearingId_seq", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bearingSequence")
+    @GeneratedValue
     private UUID id;
 
     @Min(0)

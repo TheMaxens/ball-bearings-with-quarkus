@@ -23,8 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "loads")
 public class LoadData {
     @Id
-    @SequenceGenerator(name = "loadSequence", sequenceName = "loadId_seq", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "loadSequence")
+    @GeneratedValue
     private UUID id;
 
     @Min(0)

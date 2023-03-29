@@ -14,7 +14,7 @@ import org.dhbw.mosbach.ai.domain.vo.Id;
 public class OArrangementQueryInputPort implements OArrangementQueryUseCase {
 
     @Inject
-    private OArrangementDbQueryOutputPort dbQuery;
+    OArrangementDbQueryOutputPort dbQuery;
 
     @Override
     public OArrangement getSingle(Id id) {

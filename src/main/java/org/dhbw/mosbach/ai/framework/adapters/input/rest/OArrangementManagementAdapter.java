@@ -1,5 +1,7 @@
 package org.dhbw.mosbach.ai.framework.adapters.input.rest;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -26,20 +28,22 @@ import org.dhbw.mosbach.ai.framework.adapters.input.rest.request.CreateOArrangem
 public class OArrangementManagementAdapter {
 
     @Inject
-    private OArrangementQueryUseCase oArrangementQuery;
+    OArrangementQueryUseCase oArrangementQuery;
     @Inject
-    private OArrangementCommandUseCase oArrangementCommand;
+    OArrangementCommandUseCase oArrangementCommand;
 
     @Transactional
     @GET
     @Path("/{id}")
-    public OArrangement getSingle(@PathParam("id") Id id) {
-        return oArrangementQuery.getSingle(id);
+    public OArrangement getSingle(@PathParam("id") String id) {
+        return oArrangementQuery.getSingle(Id.withId(id));
     }
 
-    // public OArrangementResource get() {
-    // return mapper.mapOArrangementToOArrangementResource(oArrangementQuery.get());
-    // }
+    @Transactional
+    @GET
+    public List<OArrangement> get() {
+        return oArrangementQuery.get();
+    }
 
     @Transactional
     @PUT
@@ -57,7 +61,7 @@ public class OArrangementManagementAdapter {
     @Transactional
     @DELETE
     @Path("/{id}")
-    public boolean delete(@PathParam("id") Id id) {
-        return oArrangementCommand.delete(id);
+    public boolean delete(@PathParam("id") String id) {
+        return oArrangementCommand.delete(Id.withId(id));
     }
 }

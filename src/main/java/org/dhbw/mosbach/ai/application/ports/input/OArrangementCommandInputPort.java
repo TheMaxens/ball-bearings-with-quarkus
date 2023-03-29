@@ -15,20 +15,20 @@ import org.dhbw.mosbach.ai.framework.adapters.input.rest.request.CreateOArrangem
 public class OArrangementCommandInputPort implements OArrangementCommandUseCase {
 
     @Inject
-    private OArrangementDbCommandOutputPort dbCommand;
+    OArrangementDbCommandOutputPort dbCommand;
 
     @Override
     public OArrangement create(CreateOArrangement createOArrangement) {
-        Bearing bearingA = new Bearing(createOArrangement.getBearingA().getCdyn(),
+        Bearing bearingA = new Bearing(null, createOArrangement.getBearingA().getCdyn(),
                 createOArrangement.getBearingA().getY(), createOArrangement.getBearingA().getE(),
                 createOArrangement.getBearingA().getXB1());
-        Bearing bearingB = new Bearing(createOArrangement.getBearingB().getCdyn(),
+        Bearing bearingB = new Bearing(null, createOArrangement.getBearingB().getCdyn(),
                 createOArrangement.getBearingB().getY(), createOArrangement.getBearingB().getE(),
                 createOArrangement.getBearingB().getXB1());
-        Load load = new Load(createOArrangement.getLoad().getFr(), createOArrangement.getLoad().getFa(),
+        Load load = new Load(null, createOArrangement.getLoad().getFr(), createOArrangement.getLoad().getFa(),
                 createOArrangement.getLoad().getN(), createOArrangement.getLoad().getXr(),
                 createOArrangement.getLoad().getYa());
-        OArrangement oArrangement = new OArrangement(bearingA, bearingB,
+        OArrangement oArrangement = new OArrangement(null, bearingA, bearingB,
                 createOArrangement.getXD1(), createOArrangement.getXD2(), load,
                 createOArrangement.getA(), createOArrangement.getA(), createOArrangement.getA());
         return dbCommand.saveOArrangement(oArrangement);
@@ -36,16 +36,16 @@ public class OArrangementCommandInputPort implements OArrangementCommandUseCase 
 
     @Override
     public OArrangement update(Id id, CreateOArrangement createOArrangement) {
-        Bearing bearingA = new Bearing(createOArrangement.getBearingA().getCdyn(),
+        Bearing bearingA = new Bearing(null, createOArrangement.getBearingA().getCdyn(),
                 createOArrangement.getBearingA().getY(), createOArrangement.getBearingA().getE(),
                 createOArrangement.getBearingA().getXB1());
-        Bearing bearingB = new Bearing(createOArrangement.getBearingB().getCdyn(),
+        Bearing bearingB = new Bearing(null, createOArrangement.getBearingB().getCdyn(),
                 createOArrangement.getBearingB().getY(), createOArrangement.getBearingB().getE(),
                 createOArrangement.getBearingB().getXB1());
-        Load load = new Load(createOArrangement.getLoad().getFr(), createOArrangement.getLoad().getFa(),
+        Load load = new Load(null, createOArrangement.getLoad().getFr(), createOArrangement.getLoad().getFa(),
                 createOArrangement.getLoad().getN(), createOArrangement.getLoad().getXr(),
                 createOArrangement.getLoad().getYa());
-        OArrangement oArrangement = new OArrangement(bearingA, bearingB,
+        OArrangement oArrangement = new OArrangement(null, bearingA, bearingB,
                 createOArrangement.getXD1(), createOArrangement.getXD2(), load,
                 createOArrangement.getA(), createOArrangement.getA(), createOArrangement.getA());
         return dbCommand.updateOArrangement(id, oArrangement);

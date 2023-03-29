@@ -30,8 +30,7 @@ public class OArrangementDbCommandPostgresAdapter implements OArrangementDbComma
 
     @Override
     public boolean deleteOArrangement(Id id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteOArrangement'");
+        System.out.println(oArrangementRepository.deleteById(id.getUuid()));
+        return true;
     }
-
 }

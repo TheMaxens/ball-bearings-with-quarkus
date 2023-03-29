@@ -33,8 +33,7 @@ import lombok.Setter;
 @Table(name = "oArrangements")
 public class OArrangementData {
     @Id
-    @SequenceGenerator(name = "oArrangementSequence", sequenceName = "oArrangementId_seq", allocationSize = 1, initialValue = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "oArrangementSequence")
+    @GeneratedValue
     private UUID id;
 
     @OneToOne(cascade = CascadeType.ALL)
