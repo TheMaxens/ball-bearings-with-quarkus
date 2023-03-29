@@ -37,6 +37,11 @@ public class OArrangementManagementAdapter {
     @GET
     @Path("/{id}")
     public OArrangement getSingle(@PathParam("id") String id) {
+        try {
+            Id.withId(id);
+        } catch (IllegalArgumentException exception) {
+            return null;
+        }
         return oArrangementQuery.getSingle(Id.withId(id));
     }
 
@@ -50,6 +55,11 @@ public class OArrangementManagementAdapter {
     @PUT
     @Path("/{id}")
     public CreateOArrangement update(@PathParam("id") String id, @Valid CreateOArrangement resource) {
+        try {
+            Id.withId(id);
+        } catch (IllegalArgumentException exception) {
+            return null;
+        }
         return oArrangementCommand.update(Id.withId(id), resource);
     }
 
@@ -63,6 +73,11 @@ public class OArrangementManagementAdapter {
     @DELETE
     @Path("/{id}")
     public boolean delete(@PathParam("id") String id) {
+        try {
+            Id.withId(id);
+        } catch (IllegalArgumentException exception) {
+            return false;
+        }
         return oArrangementCommand.delete(Id.withId(id));
     }
 }

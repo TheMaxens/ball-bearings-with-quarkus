@@ -22,7 +22,11 @@ public class OArrangementDbQueryPostgresAdapter implements OArrangementDbQueryOu
     @Override
     public OArrangement findOArrangementById(Id id) {
         OArrangementData oArrangementData = oArrangementRepository.findById(id.getUuid());
-        return OArrangementMapper.oArrangementDataToDomain(oArrangementData);
+        if (oArrangementData == null) {
+            return null; 
+        } else {
+            return OArrangementMapper.oArrangementDataToDomain(oArrangementData);
+        }
     }
 
     @Override
