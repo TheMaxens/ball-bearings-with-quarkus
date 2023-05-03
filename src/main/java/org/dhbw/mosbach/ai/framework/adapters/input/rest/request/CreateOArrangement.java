@@ -31,12 +31,12 @@ public class CreateOArrangement {
     @Valid
     private CreateLoad load;
 
-    @Min(0)
-    private double a;
+    // @Min(0)
+    // private double a;
 
-    @Min(0)
-    private double b;
+    // @Min(0)
+    // private double b;
 
-    @Min(0)
-    private double c;
+    // @Min(0)
+    // private double c;
 }
