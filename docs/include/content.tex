@@ -343,7 +343,76 @@ docker compose stop
             \label{fig:endpoints}
         \end{figure}
 
+        You can see the plain folder structure including all Java files in image \ref{fig:folder} and \ref{fig:folder_2}.
+        \newpage 
+        \begin{figure}[h]
+            \dirtree{%
+            .1 java/org/dhbw/mosbach/ai/ .
+            .2 application/ .
+            .3 ports/ .
+            .4 input/ .
+            .5 OArrangementCommandInputPort.java .
+            .5 OArrangementQueryInputPort.java .
+            .4 output/ .
+            .5 OArrangementDbCommandOutputPort.java .
+            .5 OArrangementDbQueryOutputPort.java .
+            .3 usecases/ .
+            .4 OArrangementCommandUseCase.java .
+            .4 OArrangementQueryUseCase.java .
+            .2 domain/ .
+            .3 entity/ .
+            .4 Bearing.java .
+            .4 Load.java .
+            .4 OArrangement.java .
+            .3 vo/ .
+            .4 Id.java .
+            }
+            \caption{Folder structure of source code (part 1)}
+            \label{fig:folder}
+        \end{figure}
+        \newpage       
+        
+        \begin{figure}[h]
+            \dirtree{%
+            .2 framework/ .
+            .3 adapters/ .
+            .4 input/ .
+            .5 rest/ .
+            .6 request/ .
+            .7 CreateBearing.java .
+            .7 CreateLoad.java .
+            .7 CreateOArrangement.java .
+            .6 OArrangementManagementAdapter.java .
+            .4 output/ .
+            .5 postgres/ .
+            .6 data/ .
+            .7 BearingData.java .
+            .7 LoadData.java .
+            .7 OArrangementData.java .
+            .6 mapper/ .
+            .7 OArrangementMapper.java .
+            .6 repository/ .
+            .7 OArrangementRepository.java .
+            .6 OArrangementDbCommandPostgresAdapter.java .
+            .6 OArrangementDbQueryPostgresAdapter.java .
+            }
+            \caption{Folder structure of source code (part 2)}
+            \label{fig:folder_2}
+        \end{figure}
+        \newpage
 
+        
+        \section{Testing the service}
+        REST-assured is used for testing the service. A test was implemented for each endpoint (see \ref{fig:testing}). 
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics{images/testing.png}
+            \caption{List of test cases}
+            \label{fig:testing}
+        \end{figure}
+
+        
 
 
 \chapter{Conclusion} % Fazit
