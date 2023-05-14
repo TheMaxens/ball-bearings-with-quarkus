@@ -1,16 +1,13 @@
 % some settings
 \nocite{*}
-\lstdefinestyle{bash}{basicstyle=\ttfamily, columns=fullflexible, language=bash, breaklines=true, showspaces=false, showstringspaces=false, breakatwhitespace=true}
-
-\chapter{Introduction} 
-    
+\lstdefinestyle{bash}{basicstyle=\ttfamily, columns=fullflexible, language=bash, breaklines=true, showspaces=false, showstringspaces=false, breakatwhitespace=true} 
 
   
-\chapter{Requirements} 
-    The microservice will be about a calculation process for ball bearings in O-assignment. 
+\chapter{Introduction} 
+    The microservice will be about a calculation process for ball bearings in O-assignment. The aim is to calculate the lifetime of the O-arrangement in hours (see \textit{lh10} in class OArrangement in \ref{sec:class_diagram}). \\ 
 
     \section{Flow chart for calculation process}
-        Bearing A and B (Kegelrollenlager) in O-assignment. 
+        The necessary steps for calculating the lifetime of two ball bearings in O-assignment are shown in the following flow chart.   
         
         \begin{tikzpicture}[node distance = 2cm]
             \node [terminator, fill=blue!20] (start) {\textbf{Start}};
@@ -32,6 +29,9 @@
             \path [connector] (lifetime) -- (result);
             \path [connector] (result) -- (end);
         \end{tikzpicture}
+
+    \section{Class diagram} \label{sec:class_diagram}
+        The underlying data model consists of 3 classes: \textit{Bearing}, \textit{OArrangement} and \textit{Load}. 
 
         \begin{tikzpicture}
             \begin{class}[text width=8cm]{Bearing}{0,0}
@@ -148,7 +148,7 @@ git config gpg.program gpg && git config commit.gpgsign true
 git config user.name "<user-name>"
 git config user.email "<email>"
             \end{lstlisting}
-        \item The next step is to create the private and public \ac{gpg} key \autocite[vgl.][]{create_gpg}.
+        \item The next step is to create the private and public \ac{gpg} key \autocite[cf.][]{create_gpg}.
             \begin{lstlisting}[style=bash] 
 gpg --full-generate-key 
             \end{lstlisting} 
@@ -195,7 +195,7 @@ git config commit.gpgsign true
 
 
 \section{How to set up Quarkus for remote development}\label{sec:quarkus_remote}
-    This chapter is about setting up Quarkus in a Docker container \autocite[vgl.][]{quarkus}. If you have already completed the steps from section \ref{sec:git_remote}, you can continue with this container. Otherwise, you have to create a new container.
+    This chapter is about setting up Quarkus in a Docker container \autocite[cf.][]{quarkus}. If you have already completed the steps from section \ref{sec:git_remote}, you can continue with this container. Otherwise, you have to create a new container.
 
     \begin{enumerate}
         \item Install curl because it will be needed in future steps.
@@ -327,10 +327,92 @@ docker compose stop
 
 
 
- 
-    
 
 \chapter{Implementation}
+    The microservice will be created with the Java-Framework \textit{Quarkus}. The data is stored in a PostgreSQL database. Hibernate is used as an objectrelational mapper for communicating with the database. \\
+    The microservice will be implemented in a hexagonal architecture \autocite[cf.][]{hexagonal_architecture} containing three main folders: application, domain and framework.
+    
+    
+    \section{Structure of the service}
+        You can see a list of the provided endpoints in \ref{fig:endpoints}. The service provides the basic CRUD (Create, Read, Update, Delete)-operations while consuming and producing JSON data. 
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics{images/endpoints.png}
+            \caption{List of endpoints}
+            \label{fig:endpoints}
+        \end{figure}
+
+        You can see the plain folder structure including all Java files in image \ref{fig:folder} and \ref{fig:folder_2}.
+        \newpage 
+        \begin{figure}[h]
+            \dirtree{%
+            .1 java/org/dhbw/mosbach/ai/ .
+            .2 application/ .
+            .3 ports/ .
+            .4 input/ .
+            .5 OArrangementCommandInputPort.java .
+            .5 OArrangementQueryInputPort.java .
+            .4 output/ .
+            .5 OArrangementDbCommandOutputPort.java .
+            .5 OArrangementDbQueryOutputPort.java .
+            .3 usecases/ .
+            .4 OArrangementCommandUseCase.java .
+            .4 OArrangementQueryUseCase.java .
+            .2 domain/ .
+            .3 entity/ .
+            .4 Bearing.java .
+            .4 Load.java .
+            .4 OArrangement.java .
+            .3 vo/ .
+            .4 Id.java .
+            }
+            \caption{Folder structure of source code (part 1)}
+            \label{fig:folder}
+        \end{figure}
+        \newpage       
+        
+        \begin{figure}[h]
+            \dirtree{%
+            .2 framework/ .
+            .3 adapters/ .
+            .4 input/ .
+            .5 rest/ .
+            .6 request/ .
+            .7 CreateBearing.java .
+            .7 CreateLoad.java .
+            .7 CreateOArrangement.java .
+            .6 OArrangementManagementAdapter.java .
+            .4 output/ .
+            .5 postgres/ .
+            .6 data/ .
+            .7 BearingData.java .
+            .7 LoadData.java .
+            .7 OArrangementData.java .
+            .6 mapper/ .
+            .7 OArrangementMapper.java .
+            .6 repository/ .
+            .7 OArrangementRepository.java .
+            .6 OArrangementDbCommandPostgresAdapter.java .
+            .6 OArrangementDbQueryPostgresAdapter.java .
+            }
+            \caption{Folder structure of source code (part 2)}
+            \label{fig:folder_2}
+        \end{figure}
+        \newpage
+
+        
+        \section{Testing the service}
+        REST-assured is used for testing the service. A test was implemented for each endpoint (see \ref{fig:testing}). 
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics{images/testing.png}
+            \caption{List of test cases}
+            \label{fig:testing}
+        \end{figure}
+
+        
 
 
 \chapter{Conclusion} % Fazit

@@ -17,6 +17,10 @@ public class Id {
         this.uuid = uuid;
     }
 
+    public Id() {
+        this.uuid = UUID.randomUUID();
+    }
+
     public static Id withId(String id) {
         return new Id(UUID.fromString(id));
     }
