@@ -1,6 +1,6 @@
 # ball-bearings-with-quarkus Project
 
-This project was implemented by a student of the course "Computer Science" (year 2020) at the [DHBW Mosbach](https://www.mosbach.dhbw.de/). The task was completed as part of a project work.
+This project was implemented by [@themaxens](https://github.com/TheMaxens) in the computer science course (year 2020) at the [DHBW Mosbach](https://www.mosbach.dhbw.de/). The task was completed as part of a student's project work.
 ## Table of Contents
 1. [What is the project about?](#what-is-the-project-about)
 2. [Technologies](#technologies)
