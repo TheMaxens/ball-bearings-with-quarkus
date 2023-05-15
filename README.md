@@ -24,7 +24,7 @@ Additional technologies used:
 - PostgreSQL database
 - *Hibernate* as an object-relational mapper
 - Docker (used for development containers)
-- *quarkus-junit5* and *rest-assured* for testing the application
+- *quarkus-junit5* and *rest-assured* for testing the application - the implemented test cases are located [here](/src/test/java/org/dhbw/mosbach/ai/BearingResourceTest.java)
 
 > Have a look at the dependencies in [`build.gradle`](build.gradle) for a complete overview. 
 
