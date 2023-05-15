@@ -31,7 +31,7 @@ Additional technologies used:
 ## Documentation
 There is also a detailed documentation (written in latex) for this project. Have a look at the file [content.tex](docs/include/content.tex). 
 
-The corresponding PDF file can be found in this repo under the tab "Actions". Select the top pass of *compile-latex* and then navigate to *Artifacts*. There you can download the associated PDF with the name *INF20B_Max_4706893_T3101*.
+The corresponding PDF file can be found in this repo under the tab `Actions`. Select the top pass of the workflow `compile-latex` and then navigate to `Artifacts`. There you can download the associated PDF with the name *INF20B_Max_4706893_T3101*.
 
 The Github workflow always generates a new PDF if there is a change in the */docs* folder during a pull request (see [Contribution](#contribution)).
 
