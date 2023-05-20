@@ -354,7 +354,7 @@ docker compose stop
             \label{fig:endpoints}
         \end{figure}
 
-        You can see the plain folder structure including all Java files in image \ref{fig:folder} and \ref{fig:folder_2}.
+        You can see the plain folder structure including all Java files in image \ref{fig:folder} and \ref{fig:folder_2}. The structure is based on the \textit{hexagonal architecture} presented in book \autocite{hexagonal_architecture}. Chapter \ref{sec:hex-architecture} discusses some important aspects of the \textit{hexagonal architecture}.
         \newpage
         \begin{figure}[h]
             \dirtree{%
@@ -412,7 +412,54 @@ docker compose stop
             \label{fig:folder_2}
         \end{figure}
         \newpage
+
+    \section{Hexagonal Architecture} \label{sec:hex-architecture}
+        "Create your application to work without either a UI or a database so that you can run automated regression tests against the application, work when the database becomes unavailable, and link applications together without any user involvement" (Alistair Cockburn). \\
+        This quote lays the groundwork for understanding hexagonal architecture.
+
+        The individual components of the hexagonal architecture are shown in Figure \ref{fig:hex-architecture}. The architecture was adopted 1 to 1 in the folder structure in figure \ref{fig:folder} and  \ref{fig:folder_2}. 
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=0.75]{images/hex-architecture.png}
+            \caption{Hexagonal Architecture}
+            \mbox{(Source: \autocite[][p.13]{hexagonal_architecture})}
+            \label{fig:hex-architecture}
+        \end{figure}
+
+        One of the main ideas of the hexagonal architecture is to separate business code from technology code \autocite[cf.][p.]{hexagonal_architecture}. You have to be able to change technology code without affecting business logic. The architecture consists of different hexagons (see figure \ref{fig:hex-architecture}). One of them is the \textbf{Domain hexagon}. In the Domain hexagon, we assemble the elements responsible for describing the core problems we want our software to solve. Entities and \ac{vo} are the main elements that are utilized in the Domain hexagon. This part corresponds to the folder domain/ in figure \ref{fig:folder}. Entities represent things we can assign an identity to, and value objects are immutable components that we can use to build our entities. \\
+        The \textbf{Application hexagon} sits between the business and technology sides, serving as a middleman to interact with both parties. It utilizes ports and use cases to perform its functions (see figure \ref{fig:application-hexagon}). 
+
+        \begin{figure}[h]
+            \centering
+            \includegraphics{images/application-hexagon.png}
+            \caption{Application hexagon}
+            \mbox{(Source: \autocite[][p.17]{hexagonal_architecture})}
+            \label{fig:application-hexagon}
+        \end{figure}
+
+        Use cases represent the system's behavior through application-specific operations. You can represent use cases as abstractions defined by interfaces. \\
+        An input port is the corresponding implementation of a use case interface. \\
+        There are situations in which a use case needs to fetch data from external resources (for example a database). That's the role of output ports, which are represented as interfaces. They describe  which kind of data a use case or input port needs to get from outside to perform its operations. 
+
+        The \textbf{Framework hexagon} (see \ref{fig:framework-hexagon}) provides the outside world interface. That's the place where you have the opportunity to determine how to expose application features. This is where you define REST-endpoints, for example. And to consume things from external sources, you use the Framework hexagon to specify the mechanisms to fetch data from databases or any other system. 
         
+        \begin{figure}[h]
+            \centering
+            \includegraphics{images/framework-hexagon.png}
+            \caption{Framework hexagon}
+            \mbox{(Source: \autocite[][p.19]{hexagonal_architecture})}
+            \label{fig:framework-hexagon}
+        \end{figure}
+
+        In the Framework hexagon you need to decide which technologies should be allowed to communicate with your software. That communication can occur in two forms, one known as driving
+        and another known as driven. For the driver side, we use \textbf{Input Adapters}, and for the driven side, we use \textbf{Output Adapters}. \\
+        Driving operations are requesting actions to the software, for example a user with a frontend application (in this case: REST-API). As you can see in figure \ref{fig:hex-architecture} the communication occurs through an \ac{api} built on top of the input adapters. \\
+        On the other side we have driven operations. These operations are triggered from your application and go into the outside world (for example database). These adapters must conform to our output ports by implementing them.
+        
+        The use of a hexagonal architecture makes the software much easier to maintain. For example if it's necessary to change some business rule, you only have to change the Domain hexagon.
+        \newpage
+
     \section{Testing the service} \label{sec:testing}
         \textit{REST-assured} and \textit{quarkus-junit5} are used for testing the service. A test was implemented for each endpoint (see \ref{fig:testing}). 
 
