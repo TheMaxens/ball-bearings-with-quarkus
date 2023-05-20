@@ -1,16 +1,49 @@
 # ball-bearings-with-quarkus Project
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+This project was implemented by [@themaxens](https://github.com/TheMaxens) in the computer science course (year 2020) at the [DHBW Mosbach](https://www.mosbach.dhbw.de/). The task was completed as part of a student's project work.
+## Table of Contents
+1. [What is the project about?](#what-is-the-project-about)
+2. [Technologies](#technologies)
+3. [Documentation](#documentation)
+4. [Dev Container - Prerequisites](#dev-container---prerequisites)
+5. [Running the application in dev mode](#running-the-application-in-dev-mode)
+6. [Packaging and running the application](#packaging-and-running-the-application)
+7. [Creating a native executable](#creating-a-native-executable)
+8. [Contribution](#contribution)
 
-If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-> **[Here](./contributing.md), you will find the contribution guide.** 
+## What is the project about? 
+In this project, a [Reactive RESTful Web Service](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources) was implemented, which calculates the life time of ball bearings in an O-arrangement. The usual CRUD operations (Create, Read, Update and Delete) are available.
+
+## Technologies
+This project uses **Quarkus**, the Supersonic Subatomic **Java** Framework.
+If you want to learn more about Quarkus, please visit its website: https://quarkus.io/.
+
+Additional technologies used:
+- Gradle as a build tool 
+- PostgreSQL database
+- *Hibernate* as an object-relational mapper
+- Docker (used for development containers)
+- *quarkus-junit5* and *rest-assured* for testing the application - the implemented test cases are located [here](/src/test/java/org/dhbw/mosbach/ai/BearingResourceTest.java)
+
+> Have a look at the dependencies in [`build.gradle`](build.gradle) for a complete overview. 
+
+## Documentation
+There is also a detailed documentation (written in latex) for this project. Have a look at the file [content.tex](docs/include/content.tex). 
+
+The corresponding PDF file can be found in this repo under the tab `Actions`. Select the top pass of the workflow `compile-latex` and then navigate to `Artifacts`. There you can download the associated PDF with the name *INF20B_Max_4706893_T3101*.
+
+The Github workflow always generates a new PDF if there is a change in the */docs* folder during a pull request (see [Contribution](#contribution)).
 
 ## Dev Container - Prerequisites 
+You can develop the application in a development container, in which all necessary dependencies have already been resolved. You can start right away with coding. 
+
+To do this, the following tools must be installed:
 1. [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 2. [Visual Studio Code](https://code.visualstudio.com/download)
 3. [Remote Development Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 
+> Also have a look at chapter 3 (*Remote development*) in the latex documentation for more information.  
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
@@ -54,10 +87,5 @@ You can then execute your native executable with: `./build/ball-bearings-with-qu
 
 If you want to learn more about building native executables, please consult https://quarkus.io/guides/gradle-tooling.
 
-## Provided Code
-
-### RESTEasy Reactive
-
-Easily start your Reactive RESTful Web Services
-
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+## Contribution
+> **[Here](./contributing.md), you will find the contribution guide.** 

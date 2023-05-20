@@ -1,27 +1,19 @@
 package org.dhbw.mosbach.ai;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.both;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.UUID;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.lessThan;
 
 import javax.ws.rs.core.MediaType;
 
-import org.dhbw.mosbach.ai.domain.entity.Bearing;
-import org.dhbw.mosbach.ai.domain.entity.Load;
 import org.dhbw.mosbach.ai.domain.entity.OArrangement;
-import org.dhbw.mosbach.ai.domain.vo.Id;
 import org.dhbw.mosbach.ai.framework.adapters.input.rest.request.CreateBearing;
 import org.dhbw.mosbach.ai.framework.adapters.input.rest.request.CreateLoad;
 import org.dhbw.mosbach.ai.framework.adapters.input.rest.request.CreateOArrangement;
-import org.hamcrest.collection.IsArray;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -31,7 +23,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.response.Response;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
