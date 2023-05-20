@@ -332,6 +332,17 @@ docker compose stop
     The microservice will be created with the Java-Framework \textit{Quarkus}. The data is stored in a PostgreSQL database. Hibernate is used as an objectrelational mapper for communicating with the database. \\
     The microservice will be implemented in a hexagonal architecture \autocite[cf.][]{hexagonal_architecture} containing three main folders: application, domain and framework.
     
+    \section{Use-Case diagram}
+        Figure \ref{fig:use_case} shows the different use cases from the user's point of view. \\
+        Creating and updating ball bearings in O-arrangement include the calculation of lifetime. 
+        \begin{figure}[h]
+            \centering
+            \includegraphics[scale=0.5]{images/use_case_diagram.png}
+            \caption{Use-Case diagram}
+            \label{fig:use_case}
+        \end{figure}
+        
+        You will notice that the use cases match the implemented test cases (see chapter \ref{sec:testing}).
     
     \section{Structure of the service}
         You can see a list of the provided endpoints in \ref{fig:endpoints}. The service provides the basic CRUD (Create, Read, Update, Delete)-operations while consuming and producing JSON data. 
@@ -344,10 +355,10 @@ docker compose stop
         \end{figure}
 
         You can see the plain folder structure including all Java files in image \ref{fig:folder} and \ref{fig:folder_2}.
-        \newpage 
+        \newpage
         \begin{figure}[h]
             \dirtree{%
-            .1 java/org/dhbw/mosbach/ai/ .
+            .1 src/main/java/org/dhbw/mosbach/ai/ .
             .2 application/ .
             .3 ports/ .
             .4 input/ .
@@ -374,6 +385,7 @@ docker compose stop
         
         \begin{figure}[h]
             \dirtree{%
+            .1 src/main/java/org/dhbw/mosbach/ai/ .
             .2 framework/ .
             .3 adapters/ .
             .4 input/ .
@@ -400,10 +412,9 @@ docker compose stop
             \label{fig:folder_2}
         \end{figure}
         \newpage
-
         
-        \section{Testing the service}
-        REST-assured is used for testing the service. A test was implemented for each endpoint (see \ref{fig:testing}). 
+    \section{Testing the service} \label{sec:testing}
+        \textit{REST-assured} and \textit{quarkus-junit5} are used for testing the service. A test was implemented for each endpoint (see \ref{fig:testing}). 
 
         \begin{figure}[h]
             \centering
@@ -411,6 +422,19 @@ docker compose stop
             \caption{List of test cases}
             \label{fig:testing}
         \end{figure}
+
+
+        As you can see in figure \ref{fig:folder_test} the test cases are located in one test file.
+        \begin{figure}[h]
+            \dirtree{%
+            .1 src/test/java/org/dhbw/mosbach/ai/ .
+            .2 BearingResourceTest.java .
+            }
+            \caption{Folder structure of test code}
+            \label{fig:folder_test}
+        \end{figure}
+
+        The test cases are consistent with the use cases shown in figure \ref{fig:use_case}.
 
         
 
