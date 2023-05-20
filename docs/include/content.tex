@@ -438,9 +438,9 @@ docker compose stop
             \label{fig:application-hexagon}
         \end{figure}
 
-        Use cases represent the system's behavior through application-specific operations. You can represent use cases as abstractions defined by interfaces. \\
-        An input port is the corresponding implementation of a use case interface. \\
-        There are situations in which a use case needs to fetch data from external resources (for example a database). That's the role of output ports, which are represented as interfaces. They describe  which kind of data a use case or input port needs to get from outside to perform its operations. 
+        \textbf{Use cases} represent the system's behavior through application-specific operations. You can represent use cases as abstractions defined by interfaces. \\
+        An \textbf{input port} is the corresponding implementation of a use case interface. \\
+        There are situations in which a use case needs to fetch data from external resources (for example a database). That's the role of \textbf{output ports}, which are represented as interfaces. They describe  which kind of data a use case or input port needs to get from outside to perform its operations. 
 
         The \textbf{Framework hexagon} (see \ref{fig:framework-hexagon}) provides the outside world interface. That's the place where you have the opportunity to determine how to expose application features. This is where you define REST-endpoints, for example. And to consume things from external sources, you use the Framework hexagon to specify the mechanisms to fetch data from databases or any other system. 
         
