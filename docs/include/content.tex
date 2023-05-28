@@ -4,12 +4,13 @@
 
   
 \chapter{Introduction} 
+    The aim of the thesis is an open source project on GitHub in the field of Java programming. An existing \ac{vba} application should be implemented and documented in LaTeX. \\
     The microservice will be about a calculation process for ball bearings in O-assignment. The aim is to calculate the lifetime of the O-arrangement in hours (see \textit{lh10} in class OArrangement in \ref{sec:class_diagram}). \\ 
 
     \section{Flow chart for calculation process}
         The necessary steps for calculating the lifetime of two ball bearings in O-assignment are shown in the following flow chart.   
         
-        \begin{tikzpicture}[node distance = 2cm]
+        \begin{tikzpicture}[node distance = 1.7cm]
             \node [terminator, fill=blue!20] (start) {\textbf{Start}};
             \node [process, fill=blue!20, below of=start] (conversion) {conversion of geometric measures};
             \node [process, fill=blue!20, below of=conversion] (radial) {calculation of radial forces};
@@ -487,4 +488,5 @@ docker compose stop
 
 
 \chapter{Conclusion} % Fazit
-
+    The aim of the study project was fulfilled. The existing functionality of the VBA application for calculating the life time of ball bearings was integrated into a corresponding web service, which was implemented with Quarkus in Java. \\
+    The documentation covers all essential aspects of the implementation. It also includes instructions on how to set up remote development with Docker, for example.
