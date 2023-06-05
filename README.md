@@ -13,7 +13,9 @@ This project was implemented by [@themaxens](https://github.com/TheMaxens) in th
 
 
 ## What is the project about? 
-In this project, a [Reactive RESTful Web Service](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources) was implemented, which calculates the life time of ball bearings in an O-arrangement. The usual CRUD operations (Create, Read, Update and Delete) are available.
+In this project, a [Reactive RESTful Web Service](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources) was implemented, which calculates the life time of ball bearings in an O-arrangement. The usual CRUD operations (Create, Read, Update and Delete) are available. 
+
+The software was designed according to the architectural pattern of ***Hexagonal Architecture*** which is based on ports and adapters. The book "*Designing Hexagonal Architecture with Java*" by Davi Vieira gives a good overview of the concepts of hexagonal architecture.
 
 ## Technologies
 This project uses **Quarkus**, the Supersonic Subatomic **Java** Framework.
